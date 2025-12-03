@@ -11,7 +11,7 @@ export function BrandShowcase() {
   const duplicatedBrands = [...brands, ...brands];
 
   return (
-    <section className="py-12 bg-background-elevated border-y border-border">
+    <section className="py-12 ">
       {/* Logo Marquee */}
       <div className="relative overflow-clip">
         {/* Left fade */}

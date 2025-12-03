@@ -36,7 +36,7 @@ export function Navigation({
             href={link.href}
             onClick={onLinkClick}
             className={cn(
-              "relative text-sm font-medium tracking-wide uppercase transition-colors duration-200",
+              "relative text-sm font-medium tracking-wide uppercase transition-colors duration-200 link link--metis",
               variant === "vertical" && "text-2xl lowercase tracking-normal",
               isActive
                 ? "text-primary-500"
@@ -44,9 +44,6 @@ export function Navigation({
             )}
           >
             {link.label}
-            {isActive && variant === "horizontal" && (
-              <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-500" />
-            )}
           </Link>
         );
       })}

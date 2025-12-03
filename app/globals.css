@@ -14,7 +14,9 @@
   --color-carrot-200: oklch(0.892 0.054 45.72);
   --color-carrot-300: oklch(0.842 0.085 48.06);
   --color-carrot-400: oklch(0.786 0.128 52.79);
-  --color-carrot-500: oklch(0.733 0.155 57.12); /* Primary brand color: #f08c35 converted to OKLCH */
+  --color-carrot-500: oklch(
+    0.733 0.155 57.12
+  ); /* Primary brand color: #f08c35 converted to OKLCH */
   --color-carrot-600: oklch(0.613 0.129 56.95);
   --color-carrot-700: oklch(0.499 0.106 57.08);
   --color-carrot-800: oklch(0.376 0.079 57.54);
@@ -34,29 +36,30 @@
   --color-primary-950: var(--color-carrot-950);
 
   /* ========== SEMANTIC COLORS ========== */
-  --color-background: oklch(0.06 0 0);
-  --color-background-elevated: oklch(0.10 0 0);
-  --color-background-subtle: oklch(0.13 0 0);
+  --color-background: oklch(0.15 0 0);
+  --color-background-elevated: oklch(0.17 0 0);
+  --color-background-subtle: oklch(0.2 0 0);
   --color-foreground: oklch(0.98 0 0);
-  --color-foreground-muted: oklch(0.70 0 0);
-  --color-foreground-subtle: oklch(0.70 0 0);
-  --color-border: oklch(0.20 0 0);
-  --color-border-hover: oklch(0.30 0 0);
+  --color-foreground-muted: oklch(0.7 0 0);
+  --color-foreground-subtle: oklch(0.7 0 0);
+  --color-border: oklch(0.2 0 0);
+  --color-border-hover: oklch(0.3 0 0);
 
   /* ========== FEEDBACK COLORS ========== */
   --color-success: oklch(0.72 0.17 142);
-  --color-warning: oklch(0.80 0.15 85);
+  --color-warning: oklch(0.8 0.15 85);
   --color-error: oklch(0.65 0.22 25);
 
   /* ========== GLASS EFFECTS ========== */
-  --color-glass: oklch(0.10 0 0 / 0.6);
-  --color-glass-border: oklch(0.30 0 0 / 0.3);
+  --color-glass: oklch(0.1 0 0 / 0.6);
+  --color-glass-border: oklch(0.3 0 0 / 0.3);
 
   /* ========== TYPOGRAPHY ========== */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-grunge: var(--font-grunge), ui-sans-serif, system-ui, sans-serif;
-  --font-display-alt: var(--font-display-alt), ui-sans-serif, system-ui, sans-serif;
+  --font-display-alt:
+    var(--font-display-alt), ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* ========== ANIMATION ========== */
@@ -102,6 +105,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 /* ========== SELECTION ========== */
 ::selection {
@@ -217,7 +221,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -250,4 +255,81 @@ body {
   html {
     scroll-behavior: auto;
   }
+}
+
+.link {
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  color: var(--color-foreground);
+}
+
+.link::before,
+.link::after {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: var(--color-primary-500);
+  top: 100%;
+  left: 0;
+  pointer-events: none;
+}
+
+.link::before {
+  content: "";
+  /* show by default */
+}
+
+.link--metis::before {
+  transform-origin: 100% 50%;
+  transform: scale3d(0, 1, 1);
+  transition: transform 0.3s;
+}
+
+.link--metis:hover::before {
+  transform-origin: 0% 50%;
+  transform: scale3d(1, 1, 1);
+}
+
+.button {
+	pointer-events: auto;
+	cursor: pointer;
+	position: relative;
+}
+
+.button::before,
+.button::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.button--mimas {
+	text-transform: uppercase;
+	letter-spacing: 0.05rem;
+	font-weight: 700;
+	font-size: 0.85rem;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	color: white;
+  background: var(--color-primary-900);
+}
+
+.button--mimas span {
+	position: relative;
+}
+
+.button--mimas::before {
+	content: '';
+	background: var(--color-primary-500);
+	width: 120%;
+	left: -10%;
+	transform: skew(30deg);
+	transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.button--mimas:hover::before {
+	transform: translate3d(100%,0,0);
 }

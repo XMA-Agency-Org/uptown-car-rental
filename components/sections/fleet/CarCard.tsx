@@ -18,13 +18,14 @@ import type { Car, CarSpecs } from "@/types";
 
 // Main card container variants
 const cardVariants = cva(
-  "relative overflow-clip bg-background-elevated border border-border group-hover:border-primary-500/50 transition-all duration-300 rounded-md",
+  "relative overflow-clip bg-background-elevated border-border group-hover:border-primary-500/50 transition-all duration-300 rounded-lg",
   {
     variants: {
       variant: {
         compact: "h-full aspect-[4/3]",
         minimal: "h-full aspect-[4/3] bg-background",
         standard: "h-full flex flex-col",
+        "standard-minimal": "h-full flex flex-col",
         inline: "flex flex-col lg:flex-row",
       },
     },
@@ -41,6 +42,7 @@ const imageContainerVariants = cva("relative overflow-clip", {
       compact: "absolute inset-0 h-full",
       minimal: "absolute inset-0 h-full",
       standard: "aspect-16/10",
+      "standard-minimal": "aspect-16/10",
       inline: "aspect-[4/3] lg:aspect-auto lg:w-[30%] lg:min-h-[180px] shrink-0",
     },
   },
@@ -58,6 +60,7 @@ const gradientVariants = cva("absolute inset-0 transition-opacity", {
       minimal:
         "bg-gradient-to-t from-background via-transparent to-transparent",
       standard: "hidden",
+      "standard-minimal": "hidden",
       inline: "hidden",
     },
   },
@@ -73,6 +76,7 @@ const contentVariants = cva("", {
       compact: "absolute bottom-0 left-0 right-0 p-5",
       minimal: "absolute bottom-0 left-0 right-0 p-4",
       standard: "p-5 flex flex-col flex-1",
+      "standard-minimal": "p-5 flex flex-col flex-1",
       inline: "p-4 lg:p-5 flex flex-col flex-1",
     },
   },
@@ -155,12 +159,13 @@ export function CarCard({
 
   // Determine if we're using legacy (overlay) or new (separated) layout
   const isOverlayLayout = variant === "compact" || variant === "minimal";
-  const isNewLayout = variant === "standard" || variant === "inline";
+  const isNewLayout = variant === "standard" || variant === "standard-minimal" || variant === "inline";
+  const isStandardMinimal = variant === "standard-minimal";
 
   // Default props based on variant
   const displayBadge = showBadge ?? (variant === "compact" || isNewLayout);
   const displayInquiryButton = showInquiryButton ?? true;
-  const displaySpecs = showSpecs ?? isNewLayout;
+  const displaySpecs = showSpecs ?? (isNewLayout && !isStandardMinimal);
   const displayFeaturedBadge =
     showFeaturedBadge ?? (isNewLayout && car.isFeatured);
 
@@ -367,6 +372,85 @@ export function CarCard({
     );
   }
 
+  // Standard-minimal layout - simplified vertical card without middle section
+  if (isStandardMinimal) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <Link href={`/fleet/${car.slug}`} className="group block h-full">
+          <div className={cn(cardVariants({ variant }), className)}>
+            <div className={cn(imageContainerVariants({ variant }), "relative")}>
+              <Image
+                src={primaryImage?.src || "/images/cars/placeholder.jpg"}
+                alt={car.name}
+                fill
+                className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
+              />
+
+              <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
+                {displayBadge && (
+                  <Badge variant="default" font="display" size="xs">
+                    {car.category.replace("-", " ")}
+                  </Badge>
+                )}
+                {displayFeaturedBadge && (
+                  <Badge variant="premium" font="display" size="xs">
+                    Featured
+                  </Badge>
+                )}
+              </div>
+            </div>
+
+            <div className={contentVariants({ variant })}>
+              <div className="mb-2">
+                <Text
+                  size="xs"
+                  color="muted"
+                  className="uppercase tracking-wider mb-1"
+                >
+                  {car.brand.replace("-", " ")}
+                </Text>
+                <Heading
+                  as="h3"
+                  size="sm"
+                  className="group-hover:text-primary-500 transition-colors"
+                >
+                  {car.name}
+                </Heading>
+              </div>
+
+              <div className="mt-auto flex items-center justify-between gap-4">
+                <Text size="lg" weight="bold" color="primary">
+                  {formatPrice(car.pricing.daily)}
+                  <Text as="span" size="sm" color="subtle" weight="normal">
+                    /day
+                  </Text>
+                </Text>
+
+                {displayInquiryButton && (
+                  <Button
+                    href={getCarInquiryUrl(car.name, car.year)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    size="sm"
+                    className="shrink-0"
+                  >
+                    View Deal
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </Link>
+      </motion.div>
+    );
+  }
+
   // Standard layout - vertical card
   return (
     <motion.div
@@ -377,7 +461,6 @@ export function CarCard({
     >
       <Link href={`/fleet/${car.slug}`} className="group block h-full">
         <div className={cn(cardVariants({ variant }), className)}>
-          {/* Image Container */}
           <div className={cn(imageContainerVariants({ variant }), "relative")}>
             <Image
               src={primaryImage?.src || "/images/cars/placeholder.jpg"}
@@ -386,7 +469,6 @@ export function CarCard({
               className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
             />
 
-            {/* Badges on image */}
             <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
               {displayBadge && (
                 <Badge variant="default" font="display" size="xs">
@@ -401,9 +483,7 @@ export function CarCard({
             </div>
           </div>
 
-          {/* Content */}
           <div className={contentVariants({ variant })}>
-            {/* Header section */}
             <div className="mb-4">
               <Text
                 size="xs"
@@ -421,14 +501,12 @@ export function CarCard({
               </Heading>
             </div>
 
-            {/* Specs section */}
             {displaySpecs && (
               <div className="mb-4">
                 <SpecsRow specs={car.specs} />
               </div>
             )}
 
-            {/* Price + CTA section */}
             <div className="mt-auto pt-4 border-t border-border flex items-end justify-between gap-4">
               <div>
                 <Text

@@ -1,7 +1,6 @@
 import {
   HeroSection,
   CategorySection,
-  BrandShowcase,
   CTASection,
   TrustSignals,
   AdvantagesSection,
@@ -13,8 +12,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-
-      <BrandShowcase />
 
       <CategorySection
         id="luxury-cars"

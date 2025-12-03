@@ -13,7 +13,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-primary-500 text-neutral-950 hover:bg-primary-600 active:bg-primary-700",
+          "bg-primary-500 text-neutral-950 hover:bg-primary-600 active:bg-primary-700 button button--mimas",
         secondary:
           "bg-neutral-800 text-neutral-50 hover:bg-neutral-700 active:bg-neutral-600",
         ghost:

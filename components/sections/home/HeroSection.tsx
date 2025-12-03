@@ -1,22 +1,19 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowDown, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Container, Button, Heading, Text, Badge } from "@/components/ui";
 import { getWhatsAppUrl } from "@/lib/utils";
 import { heroTitle, heroSubtitle, heroCTA } from "@/lib/animations";
 import Link from "next/link";
 import Image from "next/image";
 import BgPic from "@/public/banner.png";
+import { BrandMarquee } from "./BrandMarquee";
 
 export function HeroSection() {
-  const scrollToFleet = () => {
-    const element = document.getElementById("featured-fleet");
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-clip">
+    <section className="relative min-h-screen flex flex-col overflow-clip">
+      <div className="absolute h-36 w-full bottom-0 bg-linear-to-t from-background to-transparent z-10" />
       <div className="absolute inset-0 z-0">
         <Image
           src={BgPic}
@@ -34,7 +31,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <Container className="relative z-20 pt-32 pb-20">
+      <Container className="relative z-20 pt-32 pb-20 flex-1 flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -43,7 +40,13 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-8"
           >
-            <Badge variant="outline" size="md" shape="soft" font="display" className="gap-2">
+            <Badge
+              variant="outline"
+              size="md"
+              shape="soft"
+              font="display"
+              className="gap-2"
+            >
               <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
               Dubai&apos;s Premier Luxury Fleet
             </Badge>
@@ -98,22 +101,9 @@ export function HeroSection() {
         </div>
       </Container>
 
-      {/* Scroll Indicator */}
-      <motion.button
-        onClick={scrollToFleet}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-foreground-muted hover:text-primary-500 transition-colors"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        aria-label="Scroll to featured fleet"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
-          <ArrowDown className="w-6 h-6" />
-        </motion.div>
-      </motion.button>
+      <div className="relative z-20 py-8">
+        <BrandMarquee fadeColor="bg-transparent" />
+      </div>
     </section>
   );
 }
