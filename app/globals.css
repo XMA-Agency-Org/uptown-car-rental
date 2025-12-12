@@ -37,7 +37,7 @@
 
   /* ========== SEMANTIC COLORS ========== */
   --color-background: oklch(0.15 0 0);
-  --color-background-elevated: oklch(0.17 0 0);
+  --color-background-elevated: oklch(0.21 0 0);
   --color-background-subtle: oklch(0.2 0 0);
   --color-foreground: oklch(0.98 0 0);
   --color-foreground-muted: oklch(0.7 0 0);
@@ -58,8 +58,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-grunge: var(--font-grunge), ui-sans-serif, system-ui, sans-serif;
-  --font-display-alt:
-    var(--font-display-alt), ui-sans-serif, system-ui, sans-serif;
+  --font-display-alt: var(--font-display-alt), ui-sans-serif, system-ui,
+    sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* ========== ANIMATION ========== */
@@ -105,7 +105,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 /* ========== SELECTION ========== */
 ::selection {
@@ -292,44 +291,44 @@ body {
 }
 
 .button {
-	pointer-events: auto;
-	cursor: pointer;
-	position: relative;
+  pointer-events: auto;
+  cursor: pointer;
+  position: relative;
 }
 
 .button::before,
 .button::after {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .button--mimas {
-	text-transform: uppercase;
-	letter-spacing: 0.05rem;
-	font-weight: 700;
-	font-size: 0.85rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  color: white;
   background: var(--color-primary-900);
 }
 
 .button--mimas span {
-	position: relative;
+  position: relative;
 }
 
 .button--mimas::before {
-	content: '';
-	background: var(--color-primary-500);
-	width: 120%;
-	left: -10%;
-	transform: skew(30deg);
-	transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+  content: "";
+  background: var(--color-primary-500);
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
 }
 
 .button--mimas:hover::before {
-	transform: translate3d(100%,0,0);
+  transform: translate3d(100%, 0, 0);
 }

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   // Base styles - using CSS variable for border radius
-  "relative cursor-pointer inline-flex items-center justify-center font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 rounded-sm",
+  "relative cursor-pointer inline-flex items-center justify-center font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 rounded-xl",
   {
     variants: {
       variant: {
@@ -52,7 +52,10 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
   onClick?: React.MouseEventHandler;
 }
 
-export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
       className,
@@ -78,7 +81,11 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       <>
         {isLoading && (
           <span className="absolute inset-0 flex items-center justify-center">
-            <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none">
+            <svg
+              className="h-5 w-5 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
               <circle
                 className="opacity-25"
                 cx="12"
@@ -95,7 +102,12 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
             </svg>
           </span>
         )}
-        <span className={cn("inline-flex items-center gap-2", isLoading && "invisible")}>
+        <span
+          className={cn(
+            "inline-flex items-center gap-2",
+            isLoading && "invisible"
+          )}
+        >
           {leftIcon}
           {children}
           {rightIcon}

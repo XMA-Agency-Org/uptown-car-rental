@@ -9,10 +9,11 @@ import Link from "next/link";
 import Image from "next/image";
 import BgPic from "@/public/banner.png";
 import { BrandMarquee } from "./BrandMarquee";
+import { VehicleSearch } from "@/components/sections/fleet";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-clip">
+    <section className="relative min-h-screen flex flex-col">
       <div className="absolute h-36 w-full bottom-0 bg-linear-to-t from-background to-transparent z-10" />
       <div className="absolute inset-0 z-0">
         <Image
@@ -31,7 +32,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <Container className="relative z-20 pt-32 pb-20 flex-1 flex items-center justify-center">
+      <Container className="relative z-30 pt-32 pb-20 flex-1 flex items-center justify-center">
         <div className="max-w-6xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -75,6 +76,16 @@ export function HeroSection() {
               Experience the ultimate in luxury car rental. From Rolls Royce to
               Lamborghini, discover Dubai in unparalleled style.
             </Text>
+          </motion.div>
+
+          {/* Search */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-10 max-w-2xl mx-auto"
+          >
+            <VehicleSearch />
           </motion.div>
 
           {/* CTA Buttons */}

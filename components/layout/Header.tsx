@@ -38,9 +38,10 @@ export function Header() {
         <Container>
           <div className="flex items-center justify-between">
             {/* Logo */}
+            <div className="flex basis-0 grow mr-auto items-center">
             <Link
               href="/"
-              className="flex basis-0 grow mr-auto items-center gap-2 text-xl font-bold tracking-tight"
+                className="flex items-center gap-2 text-xl font-bold tracking-tight"
             >
               <Image
                 src="/logo-wide.png"
@@ -51,6 +52,7 @@ export function Header() {
                 priority
               />
             </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <Navigation />
