@@ -1,8 +1,14 @@
-import { Container, Heading, Text } from "@/components/ui";
+import {
+  Heading,
+  Text,
+  Breadcrumbs,
+  Section,
+  type BreadcrumbItem,
+} from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { cn } from "@/lib/utils";
 
-interface PageHeroProps {
+export interface PageHeroProps {
   tagline: string;
   title: string;
   gradientText?: string;
@@ -10,6 +16,7 @@ interface PageHeroProps {
   align?: "left" | "center";
   size?: "default" | "large";
   className?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 export function PageHero({
@@ -20,22 +27,25 @@ export function PageHero({
   align = "left",
   size = "default",
   className,
+  breadcrumbs,
 }: PageHeroProps) {
   return (
-    <section
+    <Section
+      spacing="none"
       className={cn(
-        "bg-background",
         size === "large" ? "pt-32 pb-20" : "pt-32 pb-16",
-        className
+        className,
       )}
     >
-      <Container>
         <div
           className={cn(
-            align === "center" ? "max-w-3xl mx-auto text-center" : "max-w-3xl"
+            align === "center" ? "max-w-3xl mx-auto text-center" : "max-w-3xl",
           )}
         >
           <RevealOnScroll>
+            {breadcrumbs && breadcrumbs.length > 0 && (
+              <Breadcrumbs items={breadcrumbs} className="mb-6" />
+            )}
             <Text
               size="sm"
               color="primary"
@@ -59,7 +69,6 @@ export function PageHero({
             </Text>
           </RevealOnScroll>
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

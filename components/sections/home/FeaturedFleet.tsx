@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { Container, Heading, Text, Badge, Button } from "@/components/ui";
+import { Heading, Text, Badge, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { CarCard } from "@/components/sections/fleet";
 import cars from "@/data/cars-data";
@@ -48,8 +48,7 @@ export function FeaturedFleet() {
     .slice(0, 9);
 
   return (
-    <section id="featured-fleet" className="py-12 sm:py-16 lg:py-24 bg-background">
-      <Container>
+    <Section id="featured-fleet" spacing="lg">
         {/* Section Header */}
         <RevealOnScroll className="text-center mb-12">
           <Badge variant="outline" size="sm" font="display" className="mb-4">
@@ -118,7 +117,6 @@ export function FeaturedFleet() {
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </RevealOnScroll>
-      </Container>
-    </section>
+    </Section>
   );
 }

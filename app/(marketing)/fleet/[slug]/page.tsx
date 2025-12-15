@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Container, Heading, Text } from "@/components/ui";
+import { Container, Heading, Text, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import {
   CarHero,
@@ -61,7 +61,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
     <>
       <CarHero car={car} />
 
-      <section className="mb-16 bg-background">
+      <Section spacing="none" containerSize="none" className="mb-16">
         <Container>
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             <div className="lg:col-span-2 space-y-8 lg:space-y-12">
@@ -135,7 +135,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* Similar Cars */}
       <SimilarCars cars={similarCars} />

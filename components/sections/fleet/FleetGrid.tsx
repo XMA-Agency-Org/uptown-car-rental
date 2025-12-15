@@ -1,16 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState, useCallback, useEffect } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { LayoutGrid, List } from "lucide-react";
 import { CarCard } from "./CarCard";
-import { Text, Heading } from "@/components/ui";
+import { Text, Heading, Pagination } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import cars from "@/data/cars-data";
 import { PRICE_RANGES } from "@/lib/constants";
 
+const CARS_PER_PAGE = 12;
+
 type ViewMode = "grid" | "list";
-type SortOption = "featured" | "price-low" | "price-high" | "name-asc" | "newest";
+type SortOption =
+  | "featured"
+  | "price-low"
+  | "price-high"
+  | "name-asc"
+  | "newest";
 
 const SORT_OPTIONS: { id: SortOption; label: string }[] = [
   { id: "featured", label: "Featured" },
@@ -22,6 +29,8 @@ const SORT_OPTIONS: { id: SortOption; label: string }[] = [
 
 export function FleetGrid() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState<SortOption>("featured");
 
@@ -29,6 +38,7 @@ export function FleetGrid() {
   const currentBrand = searchParams.get("brand");
   const currentPriceRange = searchParams.get("price");
   const searchQuery = searchParams.get("search");
+  const currentPage = Number(searchParams.get("page")) || 1;
 
   const filteredCars = useMemo(() => {
     let result = cars.filter((car) => car.isAvailable);
@@ -49,7 +59,7 @@ export function FleetGrid() {
       if (range) {
         result = result.filter(
           (car) =>
-            car.pricing.daily >= range.min && car.pricing.daily <= range.max
+            car.pricing.daily >= range.min && car.pricing.daily <= range.max,
         );
       }
     }
@@ -61,7 +71,7 @@ export function FleetGrid() {
         (car) =>
           car.name.toLowerCase().includes(query) ||
           car.brand.toLowerCase().includes(query) ||
-          car.category.toLowerCase().includes(query)
+          car.category.toLowerCase().includes(query),
       );
     }
 
@@ -85,6 +95,34 @@ export function FleetGrid() {
     });
   }, [currentCategory, currentBrand, currentPriceRange, searchQuery, sortBy]);
 
+  const totalPages = Math.ceil(filteredCars.length / CARS_PER_PAGE);
+  const paginatedCars = useMemo(() => {
+    const startIndex = (currentPage - 1) * CARS_PER_PAGE;
+    return filteredCars.slice(startIndex, startIndex + CARS_PER_PAGE);
+  }, [filteredCars, currentPage]);
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (page === 1) {
+        params.delete("page");
+      } else {
+        params.set("page", String(page));
+      }
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [searchParams, router, pathname]
+  );
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("page");
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    }
+  }, [currentPage, totalPages, searchParams, router, pathname]);
+
   if (filteredCars.length === 0) {
     return (
       <div className="text-center py-20">
@@ -102,12 +140,9 @@ export function FleetGrid() {
     <div>
       {/* Header: Results count + Sort + View toggle */}
       <div className="flex items-center justify-between mb-6 gap-4">
-        <Text color="muted" className="shrink-0">
-          Showing{" "}
-          <span className="text-foreground font-medium">
-            {filteredCars.length}
-          </span>{" "}
-          {filteredCars.length === 1 ? "vehicle" : "vehicles"}
+        <Text size="sm" color="muted">
+          {filteredCars.length} {filteredCars.length === 1 ? "vehicle" : "vehicles"}
+          {totalPages > 1 && ` · Page ${currentPage} of ${totalPages}`}
         </Text>
 
         <div className="flex items-center gap-4">
@@ -118,7 +153,14 @@ export function FleetGrid() {
             </Text>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              onChange={(e) => {
+                setSortBy(e.target.value as SortOption);
+                if (currentPage !== 1) {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.delete("page");
+                  router.push(`${pathname}?${params.toString()}`, { scroll: false });
+                }
+              }}
               className="h-11 bg-background-elevated border border-border rounded-md px-3 text-sm text-foreground focus:outline-none focus:border-primary-500 cursor-pointer"
             >
               {SORT_OPTIONS.map((option) => (
@@ -130,14 +172,14 @@ export function FleetGrid() {
           </div>
 
           {/* View mode toggle */}
-          <div className="flex items-center gap-1 p-1 bg-background-elevated border border-border rounded-md">
+          <div className="md:flex items-center gap-1 p-1 bg-background-elevated border border-border rounded-md hidden">
             <button
               onClick={() => setViewMode("grid")}
               className={cn(
                 "p-2.5 rounded-sm transition-colors",
                 viewMode === "grid"
                   ? "bg-primary-500 text-neutral-950"
-                  : "text-foreground-muted hover:text-foreground hover:bg-neutral-800"
+                  : "text-foreground-muted hover:text-foreground hover:bg-neutral-800",
               )}
               aria-label="Grid view"
             >
@@ -149,7 +191,7 @@ export function FleetGrid() {
                 "p-2.5 rounded-sm transition-colors",
                 viewMode === "list"
                   ? "bg-primary-500 text-neutral-950"
-                  : "text-foreground-muted hover:text-foreground hover:bg-neutral-800"
+                  : "text-foreground-muted hover:text-foreground hover:bg-neutral-800",
               )}
               aria-label="List view"
             >
@@ -162,27 +204,25 @@ export function FleetGrid() {
       {/* Cards */}
       {viewMode === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCars.map((car, index) => (
-            <CarCard
-              key={car.id}
-              car={car}
-              index={index}
-              variant="standard"
-            />
+          {paginatedCars.map((car, index) => (
+            <CarCard key={car.id} car={car} index={index} variant="standard" />
           ))}
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          {filteredCars.map((car, index) => (
-            <CarCard
-              key={car.id}
-              car={car}
-              index={index}
-              variant="inline"
-            />
+          {paginatedCars.map((car, index) => (
+            <CarCard key={car.id} car={car} index={index} variant="inline" />
           ))}
         </div>
       )}
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        className="mt-12"
+      />
     </div>
   );
 }

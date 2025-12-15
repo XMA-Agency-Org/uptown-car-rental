@@ -2,8 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import { Badge, Container, Heading, Text } from "@/components/ui";
-import { RevealOnScroll } from "@/components/animation";
+import { Section } from "@/components/ui";
 import { brands } from "@/data/brands";
 
 export function BrandShowcase() {
@@ -11,8 +10,7 @@ export function BrandShowcase() {
   const duplicatedBrands = [...brands, ...brands];
 
   return (
-    <section className="py-12 ">
-      {/* Logo Marquee */}
+    <Section spacing="sm" containerSize="none">
       <div className="relative overflow-clip">
         {/* Left fade */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background-elevated to-transparent z-10" />
@@ -49,6 +47,6 @@ export function BrandShowcase() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </Section>
   );
 }

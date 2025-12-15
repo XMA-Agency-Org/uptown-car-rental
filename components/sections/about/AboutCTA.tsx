@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Heading, Text, Button } from "@/components/ui";
+import { Heading, Text, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { getWhatsAppUrl } from "@/lib/utils";
 
@@ -10,8 +10,7 @@ interface AboutCTAProps {
 
 export function AboutCTA({ className }: AboutCTAProps) {
   return (
-    <section className={`py-24 bg-background ${className ?? ""}`}>
-      <Container>
+    <Section spacing="xl" className={className}>
         <RevealOnScroll className="text-center max-w-2xl mx-auto">
           <Heading as="h2" size="xl" className="mb-6">
             Ready to Experience the{" "}
@@ -36,7 +35,6 @@ export function AboutCTA({ className }: AboutCTAProps) {
             </Button>
           </div>
         </RevealOnScroll>
-      </Container>
-    </section>
+    </Section>
   );
 }

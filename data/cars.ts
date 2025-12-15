@@ -60,3 +60,87 @@ export function getSimilarCars(car: Car, limit: number = 4): Car[] {
     )
     .slice(0, limit);
 }
+
+export function getCarCountByBrand(): Record<string, number> {
+  return cars.reduce(
+    (acc, car) => {
+      if (car.isAvailable) {
+        acc[car.brand] = (acc[car.brand] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+}
+
+export function getCarCountByCategory(): Record<string, number> {
+  return cars.reduce(
+    (acc, car) => {
+      if (car.isAvailable) {
+        acc[car.category] = (acc[car.category] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+}
+
+export function getTotalCarCount(): number {
+  return cars.filter((car) => car.isAvailable).length;
+}
+
+const brandDisplayNames: Record<string, string> = {
+  "rolls-royce": "Rolls-Royce",
+  lamborghini: "Lamborghini",
+  ferrari: "Ferrari",
+  bentley: "Bentley",
+  mercedes: "Mercedes-Benz",
+  bmw: "BMW",
+  porsche: "Porsche",
+  "range-rover": "Range Rover",
+  audi: "Audi",
+  mclaren: "McLaren",
+  "aston-martin": "Aston Martin",
+  chevrolet: "Chevrolet",
+  cadillac: "Cadillac",
+  mini: "MINI",
+  gmc: "GMC",
+  nissan: "Nissan",
+  maserati: "Maserati",
+};
+
+export function getAllBrandsWithCount(): { id: string; name: string; count: number }[] {
+  const counts = getCarCountByBrand();
+  const uniqueBrands = [...new Set(cars.map((car) => car.brand))];
+
+  return uniqueBrands
+    .map((brandId) => ({
+      id: brandId,
+      name:
+        brandDisplayNames[brandId] ||
+        brandId
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+      count: counts[brandId] || 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export function getBrandDisplayName(brandId: string): string {
+  return (
+    brandDisplayNames[brandId] ||
+    brandId
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  );
+}
+
+export function getCarsByBodyType(bodyType: string): Car[] {
+  return cars.filter((car) => car.category === bodyType && car.isAvailable);
+}
+
+export function getAllCars(): Car[] {
+  return cars.filter((car) => car.isAvailable);
+}

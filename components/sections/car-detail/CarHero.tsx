@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { Container, Heading, Text, Badge } from "@/components/ui";
+import { Container, Heading, Text, Badge, Section } from "@/components/ui";
 import type { Car } from "@/types";
 
 interface CarHeroProps {
@@ -14,7 +14,7 @@ interface CarHeroProps {
 
 export function CarHero({ car }: CarHeroProps) {
   return (
-    <section className="relative flex items-end overflow-clip mb-16">
+    <Section spacing="none" containerSize="none" className="relative flex items-end mb-16">
       <Container className="relative z-10 pt-32">
         <motion.div>
           <Link
@@ -26,6 +26,6 @@ export function CarHero({ car }: CarHeroProps) {
           </Link>
         </motion.div>
       </Container>
-    </section>
+    </Section>
   );
 }

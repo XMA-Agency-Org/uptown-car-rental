@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/ui";
+import { Section } from "@/components/ui";
 import { PageHero } from "@/components/sections/shared";
 import {
   ContactInfo,
@@ -31,30 +31,22 @@ export default function ContactPage() {
         description="Have a question about our fleet or need assistance with a booking? Our team is available 24/7 to provide you with exceptional service."
       />
 
-      {/* Contact Info & Form Section */}
-      <section className="pb-24 bg-background">
-        <Container>
+      <Section spacing="none" className="pb-24">
           <div className="grid lg:grid-cols-5 gap-12">
-            {/* Contact Information */}
             <div className="lg:col-span-2 space-y-8">
               <ContactInfo />
               <BusinessHours hours={hours} />
             </div>
 
-            {/* Contact Form */}
             <div className="lg:col-span-3">
               <ContactForm />
             </div>
           </div>
-        </Container>
-      </section>
+      </Section>
 
-      {/* Map Section */}
-      <section className="pb-24 bg-background">
-        <Container>
+      <Section spacing="none" className="pb-24">
           <MapPlaceholder />
-        </Container>
-      </section>
+      </Section>
     </>
   );
 }

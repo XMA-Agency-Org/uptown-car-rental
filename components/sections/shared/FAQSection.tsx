@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Container, Heading, Text, Badge, Button } from "@/components/ui";
+import { Heading, Text, Badge, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { FAQItem } from "./FAQItem";
 
@@ -70,12 +70,10 @@ export function FAQSection({
   const displayedFAQs = limit ? faqData.slice(0, limit) : faqData;
 
   return (
-    <section
-      className={`py-20 lg:py-24 ${
-        alternateBackground ? "bg-background-elevated" : "bg-background"
-      }`}
+    <Section
+      spacing="lg"
+      background={alternateBackground ? "elevated" : "default"}
     >
-      <Container>
         {/* Section Header */}
         {showHeader && (
           <RevealOnScroll className="text-center mb-12">
@@ -115,7 +113,6 @@ export function FAQSection({
             </Button>
           </RevealOnScroll>
         )}
-      </Container>
-    </section>
+    </Section>
   );
 }

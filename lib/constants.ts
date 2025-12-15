@@ -22,17 +22,29 @@ export const SOCIAL = {
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Fleet", href: "/fleet" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
-export const CAR_CATEGORIES = [
-  { id: "all", label: "All Cars" },
+export const CAR_BODY_TYPES = [
+  { id: "all", label: "All Types" },
   { id: "supercar", label: "Supercars" },
-  { id: "luxury-sedan", label: "Luxury Sedans" },
+  { id: "luxury-sedan", label: "Sedans" },
   { id: "suv", label: "SUVs" },
   { id: "sports", label: "Sports Cars" },
   { id: "convertible", label: "Convertibles" },
+  { id: "coupe", label: "Coupes" },
+] as const;
+
+export const CAR_CATEGORIES = [
+  { id: "all", label: "All Categories" },
+  { id: "luxury", label: "Luxury" },
+  { id: "business", label: "Business" },
+  { id: "economy", label: "Economy" },
+  { id: "popular", label: "Popular" },
+  { id: "new-arrivals", label: "New Arrivals" },
+  { id: "special-offers", label: "Special Offers" },
 ] as const;
 
 export const CAR_BRANDS = [

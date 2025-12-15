@@ -11,7 +11,7 @@ import {
   PiggyBank,
   ShieldCheck,
 } from "lucide-react";
-import { Container, Heading, Text, Badge } from "@/components/ui";
+import { Heading, Text, Badge, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 
 const advantages = [
@@ -67,8 +67,7 @@ const advantages = [
 
 export function AdvantagesSection() {
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-background">
-      <Container>
+    <Section spacing="lg">
         {/* Section Header */}
         <RevealOnScroll className="text-center mb-12">
           <Badge variant="outline" size="sm" font="display" className="mb-4">
@@ -106,7 +105,6 @@ export function AdvantagesSection() {
             </motion.div>
           ))}
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

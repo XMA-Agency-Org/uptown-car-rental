@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Heading, Text } from "@/components/ui";
+import { Heading, Text, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 
 export interface StatItem {
@@ -15,8 +15,7 @@ interface StatsGridProps {
 
 export function StatsGrid({ stats, className }: StatsGridProps) {
   return (
-    <section className={`py-16 bg-background-elevated border-y border-border ${className ?? ""}`}>
-      <Container>
+    <Section spacing="md" background="elevated" border="both" className={className}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <RevealOnScroll key={stat.label} delay={index * 0.1}>
@@ -29,7 +28,6 @@ export function StatsGrid({ stats, className }: StatsGridProps) {
             </RevealOnScroll>
           ))}
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
-import { Container, Heading, Text, Badge } from "@/components/ui";
+import { Heading, Text, Badge, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { VALUE_PROPOSITIONS } from "@/lib/constants";
 
@@ -18,8 +18,7 @@ const features = [
 
 export function ExperienceSection() {
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-background overflow-clip">
-      <Container>
+    <Section spacing="lg">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image Side */}
           <RevealOnScroll direction="left" className="relative">
@@ -133,7 +132,6 @@ export function ExperienceSection() {
             </div>
           </RevealOnScroll>
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

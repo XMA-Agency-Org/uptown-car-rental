@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { SlidersHorizontal } from "lucide-react";
-import { Container, Button, MobileDrawer } from "@/components/ui";
+import { Button, MobileDrawer, Section } from "@/components/ui";
 import { PageHero } from "@/components/sections/shared";
 import { FleetFilters, FleetGrid } from "@/components/sections/fleet";
 
@@ -18,8 +18,7 @@ function FleetContent() {
       />
 
       {/* Fleet Grid with Filters */}
-      <section className="pb-24 bg-background">
-        <Container>
+      <Section spacing="none" className="pb-24">
           <div className="flex lg:gap-12">
             {/* Desktop Filters Sidebar */}
             <div className="hidden lg:block w-64 shrink-0">
@@ -54,8 +53,7 @@ function FleetContent() {
               <FleetGrid />
             </div>
           </div>
-        </Container>
-      </section>
+      </Section>
     </>
   );
 }

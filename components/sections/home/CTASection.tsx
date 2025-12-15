@@ -2,14 +2,14 @@
 
 import { motion } from "motion/react";
 import { MessageCircle, Phone } from "lucide-react";
-import { Container, Heading, Text, Button, Badge } from "@/components/ui";
+import { Container, Heading, Text, Button, Badge, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { COMPANY } from "@/lib/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
 
 export function CTASection() {
   return (
-    <section className="relative py-12 sm:py-16 lg:py-24 overflow-clip">
+    <Section spacing="lg" containerSize="none" className="relative overflow-clip">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-background to-background" />
 
@@ -77,6 +77,6 @@ export function CTASection() {
           </motion.div>
         </RevealOnScroll>
       </Container>
-    </section>
+    </Section>
   );
 }

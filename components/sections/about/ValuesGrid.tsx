@@ -1,7 +1,7 @@
 "use client";
 
 import { Star, Shield, Clock, Award } from "lucide-react";
-import { Container, Heading, Text } from "@/components/ui";
+import { Heading, Text, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 
 // Define values here since icons can't be passed from Server Components
@@ -41,8 +41,7 @@ interface ValuesGridProps {
 export function ValuesGrid({ tagline, title, className }: ValuesGridProps) {
   const values = defaultValues;
   return (
-    <section className={`py-24 bg-background-elevated ${className ?? ""}`}>
-      <Container>
+    <Section spacing="xl" background="elevated" className={className}>
         <RevealOnScroll className="text-center mb-16">
           <Text
             size="sm"
@@ -77,7 +76,6 @@ export function ValuesGrid({ tagline, title, className }: ValuesGridProps) {
             );
           })}
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

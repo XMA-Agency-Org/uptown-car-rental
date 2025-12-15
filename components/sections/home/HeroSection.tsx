@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { motion } from "motion/react";
 import { MessageCircle, Search } from "lucide-react";
-import { Container, Button, Heading, Text, Badge } from "@/components/ui";
+import { Container, Button, Heading, Text, Badge, Section } from "@/components/ui";
 import { getWhatsAppUrl } from "@/lib/utils";
 import { heroTitle, heroSubtitle, heroCTA } from "@/lib/animations";
 import Link from "next/link";
@@ -23,7 +23,7 @@ function SearchFallback() {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col">
+    <Section spacing="none" containerSize="none" className="relative flex flex-col">
       <div className="absolute h-36 w-full bottom-0 bg-linear-to-t from-background to-transparent z-10" />
       <div className="absolute inset-0 z-0">
         <Image
@@ -36,7 +36,7 @@ export function HeroSection() {
           placeholder="blur"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/70 via-neutral-950/50 to-neutral-950/80" />
+        <div className="absolute inset-0 bg-linear-to-b from-neutral-950/70 via-neutral-950/50 to-neutral-950/80" />
 
         <div className="absolute inset-0 noise-texture" />
       </div>
@@ -54,7 +54,6 @@ export function HeroSection() {
             <Badge
               variant="outline"
               size="md"
-              shape="soft"
               font="display"
               className="gap-2"
             >
@@ -99,34 +98,12 @@ export function HeroSection() {
               <VehicleSearch />
             </Suspense>
           </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={heroCTA}
-            initial="initial"
-            animate="animate"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button
-              as="a"
-              href={getWhatsAppUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              size="lg"
-              leftIcon={<MessageCircle className="w-5 h-5" />}
-            >
-              Book on WhatsApp
-            </Button>
-            <Button as={Link} href="/fleet" variant="outline" size="lg">
-              Explore Fleet
-            </Button>
-          </motion.div>
         </div>
       </Container>
 
       <div className="relative z-20 py-8">
         <BrandMarquee fadeColor="bg-transparent" />
       </div>
-    </section>
+    </Section>
   );
 }

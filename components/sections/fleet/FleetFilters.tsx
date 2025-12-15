@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
 import { Button, Text, FilterGroup } from "@/components/ui";
-import { CAR_CATEGORIES, CAR_BRANDS, PRICE_RANGES } from "@/lib/constants";
+import { CAR_BODY_TYPES, CAR_BRANDS, PRICE_RANGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface FleetFiltersProps {
@@ -66,10 +66,10 @@ export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
         )}
       </div>
 
-      {/* Category Filter */}
+      {/* Body Type Filter */}
       <FilterGroup
-        title="Category"
-        items={CAR_CATEGORIES}
+        title="Body Type"
+        items={CAR_BODY_TYPES}
         value={currentCategory}
         onChange={(value) => updateFilter("category", value)}
         allOptionId="all"

@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, Heading } from "@/components/ui";
+import { Heading, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { CarCard } from "@/components/sections/fleet";
 import type { Car } from "@/types";
@@ -15,8 +15,7 @@ export function SimilarCars({ cars }: SimilarCarsProps) {
   }
 
   return (
-    <section className="py-20 bg-background-elevated border-t border-border">
-      <Container>
+    <Section spacing="lg" background="elevated" border="top" className="py-20">
         <RevealOnScroll className="mb-10">
           <Heading as="h2" size="xl">
             Similar Vehicles
@@ -35,7 +34,6 @@ export function SimilarCars({ cars }: SimilarCarsProps) {
             />
           ))}
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

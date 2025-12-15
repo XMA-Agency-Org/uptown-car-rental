@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Container, Heading, Text, Button } from "@/components/ui";
+import { Heading, Text, Button, Section } from "@/components/ui";
 import {
   SpeedometerGauge,
   gaugeSlides,
@@ -24,8 +24,7 @@ export function TrustSignals() {
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-background-elevated border-y border-border">
-      <Container>
+    <Section background="elevated" spacing="lg" border="both">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center justify-items-center">
           {/* Gauge on the left */}
           <RevealOnScroll className="flex justify-center">
@@ -85,7 +84,6 @@ export function TrustSignals() {
             </div>
           </RevealOnScroll>
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { brands } from "@/data/brands";
 
 interface BrandMarqueeProps {
@@ -13,11 +14,11 @@ export function BrandMarquee({ fadeColor = "from-neutral-950/80" }: BrandMarquee
 
   return (
     <div className="relative overflow-clip">
-      <div className={`absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r ${fadeColor} to-transparent z-10`} />
-      <div className={`absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l ${fadeColor} to-transparent z-10`} />
+      <div className={`absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r ${fadeColor} to-transparent z-10`} />
+      <div className={`absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l ${fadeColor} to-transparent z-10`} />
 
       <motion.div
-        className="flex items-center gap-16"
+        className="flex items-center md:gap-16 gap-0"
         animate={{
           x: [0, -180 * brands.length],
         }}
@@ -31,8 +32,9 @@ export function BrandMarquee({ fadeColor = "from-neutral-950/80" }: BrandMarquee
         }}
       >
         {duplicatedBrands.map((brand, index) => (
-          <div
+          <Link
             key={`${brand.id}-${index}`}
+            href={`/fleet/brand/${brand.id}`}
             className="flex-none flex items-center justify-center w-40 h-20 opacity-60 hover:opacity-100 transition-opacity duration-300"
           >
             <Image
@@ -42,7 +44,7 @@ export function BrandMarquee({ fadeColor = "from-neutral-950/80" }: BrandMarquee
               height={80}
               className={`object-contain max-h-16 w-auto ${brand.invert ? "invert" : ""}`}
             />
-          </div>
+          </Link>
         ))}
       </motion.div>
     </div>

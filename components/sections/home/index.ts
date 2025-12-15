@@ -7,4 +7,5 @@ export { CTASection } from "./CTASection";
 export { CategorySection } from "./CategorySection";
 export { TrustSignals } from "./TrustSignals";
 export { AdvantagesSection } from "./AdvantagesSection";
+export { TestimonialsSection } from "./TestimonialsSection";
 export { BookingSection } from "./BookingSection";

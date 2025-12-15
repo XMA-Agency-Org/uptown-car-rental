@@ -14,7 +14,7 @@ import {
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import cars from "@/data/cars-data";
-import { CAR_BRANDS, CAR_CATEGORIES } from "@/lib/constants";
+import { CAR_BRANDS, CAR_BODY_TYPES } from "@/lib/constants";
 import type { Car } from "@/types";
 
 interface SearchSuggestion {
@@ -135,8 +135,8 @@ export function VehicleSearch({ className }: VehicleSearchProps) {
           type: "brand" as const,
         }));
 
-      // Search categories
-      const categoryMatches = CAR_CATEGORIES.filter(
+      // Search body types
+      const categoryMatches = CAR_BODY_TYPES.filter(
         (cat) =>
           cat.id !== "all" && cat.label.toLowerCase().includes(queryLower)
       )
@@ -210,7 +210,7 @@ export function VehicleSearch({ className }: VehicleSearchProps) {
           router.push(`/fleet?${params.toString()}`);
         }
       } else if (suggestion.type === "category") {
-        const categoryId = CAR_CATEGORIES.find(
+        const categoryId = CAR_BODY_TYPES.find(
           (c) => c.label.toLowerCase() === suggestion.text.toLowerCase()
         )?.id;
         if (categoryId) {
@@ -331,7 +331,7 @@ export function VehicleSearch({ className }: VehicleSearchProps) {
             onKeyDown={handleKeyDown}
             autoComplete="off"
             spellCheck={false}
-            className="w-full pl-11 pr-11 h-12 bg-background border border-border text-foreground placeholder:text-foreground-subtle transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
+            className="w-full pl-11 h-12 bg-neutral-800 border border-white/10 text-foreground placeholder:text-foreground-subtle transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
           />
           {query && (
             <button
@@ -357,7 +357,7 @@ export function VehicleSearch({ className }: VehicleSearchProps) {
         {showDropdown && (
           <div
             ref={dropdownRef}
-            className="absolute top-full left-0 right-0 mt-2 bg-background-elevated border border-border rounded-xl shadow-2xl z-[200] max-h-[400px] overflow-y-auto"
+            className="absolute top-full left-0 right-0 mt-2 bg-neutral-800 border border-border rounded-xl shadow-2xl z-[200] max-h-[400px] overflow-y-auto"
           >
             {/* Popular Searches - shown when input is empty */}
             {query.length === 0 && (
@@ -380,7 +380,7 @@ export function VehicleSearch({ className }: VehicleSearchProps) {
                         "px-3 py-2 text-sm rounded-full transition-colors duration-200 border cursor-pointer",
                         selectedIndex === index
                           ? "bg-primary-500/20 border-primary-500/50 text-primary-300"
-                          : "bg-background border-border text-foreground-muted hover:bg-neutral-800 hover:text-foreground"
+                          : "bg-neutral-700 border-neutral-600 text-foreground-muted hover:bg-neutral-800 hover:text-foreground"
                       )}
                     >
                       {popular}

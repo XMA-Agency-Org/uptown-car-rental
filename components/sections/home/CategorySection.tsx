@@ -2,34 +2,33 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Container, Heading, Text, Badge, Button } from "@/components/ui";
+import { Container, Heading, Text, Badge, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import { CarCard } from "@/components/sections/fleet";
 import cars from "@/data/cars-data";
 
 type Car = (typeof cars)[0];
 
-type CategoryId = "luxury" | "exotic" | "suv" | "convertible" | "sports";
+type CategoryId = "featured" | "exotic" | "suv" | "convertible" | "sports";
 
 const categoryFilters: Record<CategoryId, (car: Car) => boolean> = {
-  luxury: (car) =>
-    car.brand === "rolls-royce" ||
-    car.brand === "bentley" ||
-    car.category === "luxury-sedan",
+  featured: (car) => car.isFeatured === true,
   exotic: (car) =>
-    car.brand === "lamborghini" ||
-    car.brand === "ferrari" ||
-    car.category === "supercar",
-  suv: (car) => car.category === "suv",
-  convertible: (car) => car.category === "convertible",
-  sports: (car) => car.category === "sports" || car.brand === "porsche",
+    !car.isFeatured &&
+    (car.brand === "lamborghini" ||
+      car.brand === "ferrari" ||
+      car.category === "supercar"),
+  suv: (car) => !car.isFeatured && car.category === "suv",
+  convertible: (car) => !car.isFeatured && car.category === "convertible",
+  sports: (car) =>
+    !car.isFeatured && (car.category === "sports" || car.brand === "porsche"),
 };
 
 interface CategorySectionProps {
   id: string;
   title: string;
-  subtitle: string;
-  description: string;
+  subtitle?: string;
+  description?: string;
   category: CategoryId;
   viewAllHref?: string;
   alternateBackground?: boolean;
@@ -47,39 +46,49 @@ export function CategorySection({
   const filterFn = categoryFilters[category];
   const filteredCars = cars
     .filter((car) => filterFn(car) && car.isAvailable)
-    .slice(0, 9);
+    .slice(0, 4);
 
   if (filteredCars.length === 0) return null;
 
   return (
-    <section
+    <Section
       id={id}
-      className={`py-12 sm:py-16 lg:py-24 ${
-        alternateBackground ? "bg-background-elevated" : "bg-background"
-      }`}
+      spacing="md"
+      background={alternateBackground ? "elevated" : "default"}
+      containerSize="none"
     >
+      {/* Section Header */}
       <Container>
-        {/* Section Header */}
-        <RevealOnScroll className="text-center mb-12">
-          <Badge variant="outline" size="sm" font="display" className="mb-4">
+        {subtitle && (
+          <Badge variant="outline" size="sm" font="display">
             {subtitle}
           </Badge>
-          <Heading as="h2" size="2xl" className="mb-6">
-            {title}
-          </Heading>
+        )}
+        <Heading as="h2" size="2xl" className="mb-6">
+          {title}
+        </Heading>
+        {description && (
           <Text color="muted" size="lg" className="max-w-2xl mx-auto">
             {description}
           </Text>
-        </RevealOnScroll>
+        )}
+      </Container>
 
-        {/* Car Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCars.map((car, index) => (
-            <CarCard key={car.id} car={car} index={index} variant="standard-minimal" />
-          ))}
-        </div>
+      {/* Car Grid - Carousel on mobile/tablet, grid on desktop */}
+      <div className="max-lg:flex max-lg:gap-4 max-lg:overflow-x-auto max-lg:snap-x max-lg:snap-mandatory max-lg:scrollbar-hide max-lg:px-4 max-lg:pb-4 max-lg:scroll-pl-4">
+        <Container className="max-lg:p-0 max-lg:max-w-none max-lg:contents">
+          <div className="lg:grid lg:grid-cols-4 lg:gap-6 max-lg:contents">
+            {filteredCars.map((car, index) => (
+              <div key={car.id} className="max-lg:shrink-0 max-lg:w-72 max-lg:snap-start">
+                <CarCard car={car} index={index} variant="standard-minimal" />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </div>
 
-        {/* View All Link */}
+      {/* View All Link */}
+      <Container>
         <RevealOnScroll className="mt-12 text-center">
           <Button as={Link} href={viewAllHref} variant="outline" size="lg">
             View All {title}
@@ -87,6 +96,6 @@ export function CategorySection({
           </Button>
         </RevealOnScroll>
       </Container>
-    </section>
+    </Section>
   );
 }

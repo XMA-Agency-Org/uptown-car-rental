@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { Phone, MessageCircle, Calendar, Car } from "lucide-react";
-import { Container, Heading, Text, Badge, Button } from "@/components/ui";
+import { Heading, Text, Badge, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import cars from "@/data/cars-data";
 import { cn } from "@/lib/utils";
@@ -48,8 +48,7 @@ export function BookingSection() {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24">
-      <Container>
+    <Section spacing="lg">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Form */}
           <RevealOnScroll>
@@ -204,7 +203,6 @@ export function BookingSection() {
             </div>
           </RevealOnScroll>
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

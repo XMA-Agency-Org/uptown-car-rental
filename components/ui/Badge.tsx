@@ -37,7 +37,7 @@ const badgeVariants = cva(
     defaultVariants: {
       variant: "default",
       size: "sm",
-      shape: "square",
+      shape: "rounded",
       font: "default",
     },
   }

@@ -1,0 +1,78 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { Section } from "@/components/ui";
+import { PageHero } from "@/components/sections/shared";
+import { StaticFleetGrid } from "@/components/sections/fleet";
+import { getCarsByBodyType } from "@/data/cars";
+import { CAR_BODY_TYPES } from "@/lib/constants";
+
+interface BodyTypePageProps {
+  params: Promise<{ type: string }>;
+}
+
+export async function generateStaticParams() {
+  return CAR_BODY_TYPES.filter((type) => type.id !== "all").map((type) => ({
+    type: type.id,
+  }));
+}
+
+function getBodyTypeLabel(typeId: string): string {
+  const bodyType = CAR_BODY_TYPES.find((t) => t.id === typeId);
+  return bodyType?.label || typeId;
+}
+
+export async function generateMetadata({
+  params,
+}: BodyTypePageProps): Promise<Metadata> {
+  const { type } = await params;
+  const typeLabel = getBodyTypeLabel(type);
+  const cars = getCarsByBodyType(type);
+
+  if (cars.length === 0) {
+    return {
+      title: "Body Type Not Found",
+    };
+  }
+
+  return {
+    title: `Rent ${typeLabel} in Dubai | Uptown Car Rental`,
+    description: `Browse our collection of ${cars.length} ${typeLabel.toLowerCase()} available for rent in Dubai. Premium ${typeLabel.toLowerCase()} rental with delivery.`,
+    openGraph: {
+      title: `${typeLabel} Rental Dubai | Uptown`,
+      description: `Rent luxury ${typeLabel.toLowerCase()} in Dubai. ${cars.length} vehicles available.`,
+      images: cars[0]?.images[0]?.src ? [cars[0].images[0].src] : [],
+    },
+  };
+}
+
+export default async function BodyTypePage({ params }: BodyTypePageProps) {
+  const { type } = await params;
+  const typeLabel = getBodyTypeLabel(type);
+  const cars = getCarsByBodyType(type);
+
+  if (cars.length === 0) {
+    notFound();
+  }
+
+  return (
+    <>
+      <PageHero
+        tagline={typeLabel}
+        title={`${typeLabel} Rental`}
+        description={`Explore our premium selection of ${typeLabel.toLowerCase()} available for rent in Dubai. From daily rentals to monthly leases, find the perfect vehicle for your needs.`}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Fleet", href: "/fleet" },
+          { label: typeLabel },
+        ]}
+      />
+
+      <Section spacing="none" className="pb-24">
+          <StaticFleetGrid
+            cars={cars}
+            emptyMessage={`No ${typeLabel.toLowerCase()} available`}
+          />
+      </Section>
+    </>
+  );
+}

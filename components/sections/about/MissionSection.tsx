@@ -2,7 +2,7 @@
 
 import Image, { type StaticImageData } from "next/image";
 import { Check } from "lucide-react";
-import { Container, Heading, Text } from "@/components/ui";
+import { Heading, Text, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 
 interface MissionSectionProps {
@@ -25,8 +25,7 @@ export function MissionSection({
   className,
 }: MissionSectionProps) {
   return (
-    <section className={`py-24 bg-background ${className ?? ""}`}>
-      <Container>
+    <Section spacing="xl" className={className}>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <RevealOnScroll direction="left">
             <div className="relative aspect-[4/5] overflow-clip bg-background-elevated rounded-lg">
@@ -70,7 +69,6 @@ export function MissionSection({
             </div>
           </RevealOnScroll>
         </div>
-      </Container>
-    </section>
+    </Section>
   );
 }

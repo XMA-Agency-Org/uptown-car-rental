@@ -4,7 +4,7 @@ import {
   CategorySection,
   CTASection,
   TrustSignals,
-  AdvantagesSection,
+  TestimonialsSection,
   BookingSection,
 } from "@/components/sections/home";
 import { FAQSection } from "@/components/sections/shared";
@@ -21,30 +21,24 @@ export default function HomePage() {
       <HeroSection />
 
       <CategorySection
-        id="luxury-cars"
-        title="Luxury Cars"
-        subtitle="Unmatched Elegance"
-        description="Experience the pinnacle of automotive luxury with our collection of Rolls Royce, Bentley, and premium sedans."
-        category="luxury"
-        viewAllHref="/fleet?category=luxury"
+        id="featured-cars"
+        title="Our Featured Cars"
+        category="featured"
+        viewAllHref="/fleet"
       />
 
       <CategorySection
         id="exotic-cars"
         title="Exotic Cars"
-        subtitle="Pure Adrenaline"
-        description="Turn heads with our exclusive collection of Lamborghinis, Ferraris, and the world's most coveted supercars."
         category="exotic"
-        viewAllHref="/fleet?category=exotic"
+        viewAllHref="/fleet/body-type/supercar"
       />
 
       <CategorySection
         id="suv-collection"
         title="Luxury SUVs"
-        subtitle="Command The Road"
-        description="Dominate Dubai's streets with our premium SUV collection. Perfect for families, groups, or those who demand presence."
         category="suv"
-        viewAllHref="/fleet?category=suv"
+        viewAllHref="/fleet/body-type/suv"
       />
 
       {/* <CategorySection */}
@@ -53,7 +47,7 @@ export default function HomePage() {
       {/*   subtitle="Open Air Freedom" */}
       {/*   description="Feel the Dubai breeze with our stunning convertible collection. Perfect for coastal drives and unforgettable experiences." */}
       {/*   category="convertible" */}
-      {/*   viewAllHref="/fleet?category=convertible" */}
+      {/*   viewAllHref="/fleet/body-type/convertible" */}
       {/*   alternateBackground */}
       {/* /> */}
 
@@ -63,18 +57,17 @@ export default function HomePage() {
       {/*   subtitle="Performance Driven" */}
       {/*   description="Experience precision engineering and thrilling performance with our collection of Porsches and sports cars." */}
       {/*   category="sports" */}
-      {/*   viewAllHref="/fleet?category=sports" */}
+      {/*   viewAllHref="/fleet/body-type/sports" */}
       {/* /> */}
 
       <TrustSignals />
 
-      <AdvantagesSection />
-
-      <BookingSection />
+      <TestimonialsSection />
 
       <FAQSection limit={5} />
 
-      <CTASection />
+      <BookingSection />
+
     </>
   );
 }

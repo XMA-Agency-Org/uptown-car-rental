@@ -3,20 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Button, Heading, Text } from "@/components/ui";
-import { formatPrice, getCarInquiryUrl, cn } from "@/lib/utils";
-import { type BaseCarCardProps, CategoryBadge, FeaturedBadge } from "./shared";
+import { Heading, Text } from "@/components/ui";
+import { formatPrice, cn } from "@/lib/utils";
+import { type BaseCarCardProps, CategoryBadge } from "./shared";
 
 export function StandardMinimalCarCard({
   car,
   showBadge = true,
-  showInquiryButton = true,
-  showFeaturedBadge,
   className,
 }: BaseCarCardProps) {
   const primaryImage =
     car.images.find((img) => img.isPrimary) || car.images[0];
-  const displayFeaturedBadge = showFeaturedBadge ?? car.isFeatured;
 
   return (
     <motion.div
@@ -28,13 +25,12 @@ export function StandardMinimalCarCard({
       <Link href={`/fleet/${car.slug}`} className="group block h-full">
         <div
           className={cn(
-            "relative overflow-clip bg-background-elevated border-border",
-            "group-hover:border-primary-500/50 transition-all duration-300 rounded-lg",
+            "relative transition-all duration-300",
             "h-full flex flex-col",
             className
           )}
         >
-          <div className="relative aspect-16/10">
+          <div className="relative aspect-16/10 rounded-lg overflow-hidden">
             <Image
               src={primaryImage?.src || "/images/cars/placeholder.jpg"}
               alt={car.name}
@@ -42,51 +38,28 @@ export function StandardMinimalCarCard({
               className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
             />
 
-            <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
-              {showBadge && <CategoryBadge category={car.category} />}
-              {displayFeaturedBadge && <FeaturedBadge />}
-            </div>
+            {showBadge && (
+              <div className="absolute top-3 left-3">
+                <CategoryBadge category={car.category} />
+              </div>
+            )}
           </div>
 
-          <div className="p-5 flex flex-col flex-1">
-            <div className="mb-2">
-              <Text
-                size="xs"
-                color="muted"
-                className="uppercase tracking-wider mb-1"
-              >
-                {car.brand.replace("-", " ")}
-              </Text>
-              <Heading
-                as="h3"
-                size="sm"
-                className="group-hover:text-primary-500 transition-colors"
-              >
-                {car.name}
-              </Heading>
-            </div>
+          <div className="pt-4 flex flex-col flex-1">
+            <Heading
+              as="h3"
+              size="sm"
+              className="group-hover:text-primary-500 transition-colors mb-1"
+            >
+              {car.name}
+            </Heading>
 
-            <div className="mt-auto flex items-center justify-between gap-4">
-              <Text size="lg" weight="bold" color="primary">
-                {formatPrice(car.pricing.daily)}
-                <Text as="span" size="sm" color="subtle" weight="normal">
-                  /day
-                </Text>
+            <Text size="lg" weight="bold">
+              {formatPrice(car.pricing.daily)}
+              <Text as="span" size="xs" color="muted" weight="normal">
+                {" "}per day
               </Text>
-
-              {showInquiryButton && (
-                <Button
-                  href={getCarInquiryUrl(car.name, car.year)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  size="sm"
-                  className="shrink-0"
-                >
-                  View Deal
-                </Button>
-              )}
-            </div>
+            </Text>
           </div>
         </div>
       </Link>
