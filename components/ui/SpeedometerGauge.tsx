@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useAnimationControls } from "motion/react";
 import { Star, Wrench, Clock, Car, Sparkles, CreditCard } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 interface GaugeSlide {
   icon: React.ElementType;
@@ -55,12 +55,134 @@ export function SpeedometerGauge({
   autoRotate = false,
 }: SpeedometerGaugeProps = {}) {
   const [internalIndex, setInternalIndex] = useState(0);
+  const [glowColor, setGlowColor] = useState("blue");
+  const [litDigits, setLitDigits] = useState(0); // How many digits are lit orange (0-9)
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const needleControls = useAnimationControls();
+  const prevIndexRef = useRef<number | null>(null);
+  const isFirstRender = useRef(true);
+
+  // Glow intensity states: blue (idle) → orange (revving) → red (redline)
+  const glowColors = {
+    blue: {
+      outer: { blur: 22, color: "oklch(0.704 0.12 253.63 / 0.35)" },
+      middle: { blur: 16, color: "oklch(0.6 0.11 253.63 / 0.28)" },
+      inner: { blur: 10, color: "oklch(0.5 0.09 253.63 / 0.2)" },
+    },
+    orange: {
+      outer: { blur: 30, color: "oklch(0.75 0.15 50 / 0.45)" },
+      middle: { blur: 22, color: "oklch(0.65 0.14 50 / 0.35)" },
+      inner: { blur: 14, color: "oklch(0.55 0.12 50 / 0.28)" },
+    },
+    red: {
+      outer: { blur: 40, color: "oklch(0.65 0.22 25 / 0.55)" },
+      middle: { blur: 30, color: "oklch(0.55 0.2 25 / 0.45)" },
+      inner: { blur: 20, color: "oklch(0.45 0.17 25 / 0.35)" },
+    },
+  };
 
   const activeIndex =
     controlledIndex !== undefined ? controlledIndex : internalIndex;
 
-  // Auto-rotate through slides every 4 seconds (only if autoRotate is true and not controlled)
+  // Needle position constants (degrees)
+  const needleIdleAngle = -70;
+  const needleTargetStart = -55;
+  const needleSweep = 20;
+  const needleMaxRevAngle = 75;
+  const needleRestPosition = needleIdleAngle;
+
+  // Calculate target rotation based on slide index
+  const getTargetRotation = useCallback(
+    (index: number) => {
+      return (
+        needleTargetStart + (index * needleSweep) / (gaugeSlides.length - 1)
+      );
+    },
+    [needleTargetStart, needleSweep]
+  );
+
+  // Animate digits lighting up progressively
+  const animateDigitsUp = useCallback(async () => {
+    for (let i = 1; i <= 9; i++) {
+      setLitDigits(i);
+      await new Promise((resolve) => setTimeout(resolve, 35));
+    }
+  }, []);
+
+  // Animate digits turning off progressively
+  const animateDigitsDown = useCallback(async () => {
+    for (let i = 9; i >= 0; i--) {
+      setLitDigits(i);
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    }
+  }, []);
+
+  // Three-phase gear shift animation: rev → reset → settle
+  const playGearShiftAnimation = useCallback(
+    async (targetIndex: number) => {
+      const targetRotation = getTargetRotation(targetIndex);
+
+      // Phase 1: Rev to redline - light up digits progressively
+      setGlowColor("orange");
+      const needleAnimation = needleControls.start({
+        rotate: needleMaxRevAngle,
+        transition: { type: "spring", stiffness: 200, damping: 15, mass: 0.5 },
+      });
+      animateDigitsUp(); // Fire and forget - runs in parallel
+
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      setGlowColor("red");
+      await needleAnimation;
+
+      // Phase 2: Reset to idle - turn off digits progressively
+      setGlowColor("blue");
+      animateDigitsDown(); // Fire and forget - runs in parallel
+      await needleControls.start({
+        rotate: needleRestPosition,
+        transition: { type: "spring", stiffness: 400, damping: 25, mass: 0.2 },
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 80));
+
+      // Phase 3: Settle at target
+      await needleControls.start({
+        rotate: targetRotation,
+        transition: { type: "spring", stiffness: 80, damping: 12, mass: 0.8 },
+      });
+    },
+    [
+      needleControls,
+      getTargetRotation,
+      needleMaxRevAngle,
+      needleRestPosition,
+      animateDigitsUp,
+      animateDigitsDown,
+    ]
+  );
+
+  // Trigger animation on index change
+  useEffect(() => {
+    if (isFirstRender.current) {
+      needleControls.set({ rotate: needleRestPosition });
+      prevIndexRef.current = activeIndex;
+      isFirstRender.current = false;
+      const timer = setTimeout(() => playGearShiftAnimation(activeIndex), 300);
+      return () => clearTimeout(timer);
+    }
+
+    if (prevIndexRef.current !== activeIndex) {
+      playGearShiftAnimation(activeIndex);
+      prevIndexRef.current = activeIndex;
+    }
+  }, [
+    activeIndex,
+    playGearShiftAnimation,
+    needleControls,
+    getTargetRotation,
+    needleRestPosition,
+  ]);
+
+  // Auto-rotate slides when enabled
   useEffect(() => {
     if (autoRotate && controlledIndex === undefined) {
       const interval = setInterval(() => {
@@ -72,12 +194,6 @@ export function SpeedometerGauge({
 
   const currentSlide = gaugeSlides[activeIndex];
   const IconComponent = currentSlide.icon;
-
-  // Calculate needle rotation: maps slide index to angle on gauge
-  const needleStartAngle = -70;
-  const needleSweep = 145;
-  const needleRotation =
-    needleStartAngle + (activeIndex * needleSweep) / (gaugeSlides.length - 1);
 
   return (
     <div className="relative w-[340px] h-[340px] sm:w-[400px] sm:h-[400px]">
@@ -107,17 +223,21 @@ export function SpeedometerGauge({
             const angle =
               startAngle + (index * angleSpan) / (numbers.length - 1);
             const radius = 42;
+            const isLit = index < litDigits;
 
             return (
               <div
                 key={num}
-                className="absolute text-xl sm:text-2xl"
+                className="absolute text-xl sm:text-2xl transition-colors duration-100"
                 style={{
-                  color: "oklch(0.62 0.005 50)",
+                  color: isLit ? "oklch(0.75 0.15 50)" : "oklch(0.62 0.005 50)",
                   left: `${50 + radius * Math.cos((angle * Math.PI) / 180)}%`,
                   top: `${50 + radius * Math.sin((angle * Math.PI) / 180)}%`,
                   transform: "translate(-50%, -50%)",
-                  fontWeight: 200,
+                  fontWeight: isLit ? 400 : 200,
+                  textShadow: isLit
+                    ? "0 0 8px oklch(0.7 0.15 50 / 0.5)"
+                    : "none",
                 }}
               >
                 {num}
@@ -157,7 +277,7 @@ export function SpeedometerGauge({
 
       {/* Inner circle */}
       <div
-        className="absolute rounded-full"
+        className="absolute rounded-full transition-shadow duration-200"
         style={{
           top: "12%",
           left: "12%",
@@ -165,14 +285,22 @@ export function SpeedometerGauge({
           bottom: "12%",
           background: "oklch(0.24 0 0)",
           boxShadow: `
-            inset 0 0 22px oklch(0.704 0.12 253.63 / 0.35),
-            inset 0 0 16px oklch(0.6 0.11 253.63 / 0.28),
-            inset 0 0 10px oklch(0.5 0.09 253.63 / 0.2)
+            inset 0 0 ${
+              glowColors[glowColor as keyof typeof glowColors].outer.blur
+            }px ${glowColors[glowColor as keyof typeof glowColors].outer.color},
+            inset 0 0 ${
+              glowColors[glowColor as keyof typeof glowColors].middle.blur
+            }px ${
+            glowColors[glowColor as keyof typeof glowColors].middle.color
+          },
+            inset 0 0 ${
+              glowColors[glowColor as keyof typeof glowColors].inner.blur
+            }px ${glowColors[glowColor as keyof typeof glowColors].inner.color}
           `,
         }}
       >
         {/* Slide content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           <motion.div
             key={activeIndex}
             initial={{ scale: 0.8, opacity: 0 }}
@@ -214,14 +342,14 @@ export function SpeedometerGauge({
 
         {/* Needle assembly - rotates based on active slide */}
         <motion.div
-          className="absolute"
+          className="absolute z-10"
           style={{
             bottom: "18%",
             left: "50%",
             transformOrigin: "0 0",
           }}
-          animate={{ rotate: needleRotation }}
-          transition={{ type: "spring", stiffness: 50, damping: 12 }}
+          initial={{ rotate: needleRestPosition }}
+          animate={needleControls}
         >
           {/* Needle pointer */}
           <div
@@ -238,7 +366,7 @@ export function SpeedometerGauge({
               filter: "drop-shadow(0 2px 4px oklch(0 0 0 / 0.4))",
             }}
           />
-          {/* Needle tail */}
+          {/* Tail */}
           <div
             style={{
               position: "absolute",
