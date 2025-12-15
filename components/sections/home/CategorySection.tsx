@@ -58,13 +58,13 @@ export function CategorySection({
       containerSize="none"
     >
       {/* Section Header */}
-      <Container>
+      <Container className="mb-12 text-center">
         {subtitle && (
-          <Badge variant="outline" size="sm" font="display">
+          <Badge variant="outline" size="sm" font="display" className="mb-4">
             {subtitle}
           </Badge>
         )}
-        <Heading as="h2" size="2xl" className="mb-6">
+        <Heading as="h2" size="2xl" className="text-center mb-6">
           {title}
         </Heading>
         {description && (

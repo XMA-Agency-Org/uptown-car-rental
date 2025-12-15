@@ -22,7 +22,9 @@ export default function HomePage() {
 
       <CategorySection
         id="featured-cars"
-        title="Our Featured Cars"
+        title="Featured Cars"
+        subtitle="Editor's Choice"
+        description="Our hand-picked selection of the finest luxury vehicles from our exclusive collection."
         category="featured"
         viewAllHref="/fleet"
       />
@@ -30,6 +32,8 @@ export default function HomePage() {
       <CategorySection
         id="exotic-cars"
         title="Exotic Cars"
+        subtitle="Pure Adrenaline"
+        description="Turn heads with our exclusive collection of Lamborghinis, Ferraris, and the world's most coveted supercars."
         category="exotic"
         viewAllHref="/fleet/body-type/supercar"
       />
@@ -37,6 +41,8 @@ export default function HomePage() {
       <CategorySection
         id="suv-collection"
         title="Luxury SUVs"
+        subtitle="Command The Road"
+        description="Dominate Dubai's streets with our premium SUV collection. Perfect for families, groups, or those who demand presence."
         category="suv"
         viewAllHref="/fleet/body-type/suv"
       />
@@ -47,7 +53,7 @@ export default function HomePage() {
       {/*   subtitle="Open Air Freedom" */}
       {/*   description="Feel the Dubai breeze with our stunning convertible collection. Perfect for coastal drives and unforgettable experiences." */}
       {/*   category="convertible" */}
-      {/*   viewAllHref="/fleet/body-type/convertible" */}
+      {/*   viewAllHref="/fleet?category=convertible" */}
       {/*   alternateBackground */}
       {/* /> */}
 
@@ -57,7 +63,7 @@ export default function HomePage() {
       {/*   subtitle="Performance Driven" */}
       {/*   description="Experience precision engineering and thrilling performance with our collection of Porsches and sports cars." */}
       {/*   category="sports" */}
-      {/*   viewAllHref="/fleet/body-type/sports" */}
+      {/*   viewAllHref="/fleet?category=sports" */}
       {/* /> */}
 
       <TrustSignals />

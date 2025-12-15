@@ -44,24 +44,6 @@ export function HeroSection() {
       {/* Content */}
       <Container className="relative z-30 pt-32 pb-20 flex-1 flex items-center justify-center">
         <div className="max-w-6xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-8"
-          >
-            <Badge
-              variant="outline"
-              size="md"
-              font="display"
-              className="gap-2"
-            >
-              <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-              Dubai&apos;s Premier Luxury Fleet
-            </Badge>
-          </motion.div>
-
           {/* Main Headline */}
           <motion.div variants={heroTitle} initial="initial" animate="animate">
             <Heading as="h1" size="hero" className="mb-6">
