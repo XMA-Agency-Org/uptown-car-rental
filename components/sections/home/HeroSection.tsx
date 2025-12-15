@@ -1,7 +1,8 @@
 "use client";
 
+import { Suspense } from "react";
 import { motion } from "motion/react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Search } from "lucide-react";
 import { Container, Button, Heading, Text, Badge } from "@/components/ui";
 import { getWhatsAppUrl } from "@/lib/utils";
 import { heroTitle, heroSubtitle, heroCTA } from "@/lib/animations";
@@ -10,6 +11,15 @@ import Image from "next/image";
 import BgPic from "@/public/banner.png";
 import { BrandMarquee } from "./BrandMarquee";
 import { VehicleSearch } from "@/components/sections/fleet";
+
+function SearchFallback() {
+  return (
+    <div className="w-full h-12 bg-background border border-border rounded-xl flex items-center px-4 gap-3">
+      <Search className="w-4 h-4 text-foreground-subtle" />
+      <span className="text-foreground-subtle">Search by car name, brand, or category...</span>
+    </div>
+  );
+}
 
 export function HeroSection() {
   return (
@@ -85,7 +95,9 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-10 max-w-2xl mx-auto"
           >
-            <VehicleSearch />
+            <Suspense fallback={<SearchFallback />}>
+              <VehicleSearch />
+            </Suspense>
           </motion.div>
 
           {/* CTA Buttons */}
