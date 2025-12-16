@@ -14,3 +14,4 @@ export { TestimonialsColumn, type Testimonial } from "./TestimonialsColumn";
 export { InitialsAvatar } from "./InitialsAvatar";
 export { Pagination } from "./Pagination";
 export { Section, sectionVariants } from "./Section";
+export { Marquee } from "./Marquee";
