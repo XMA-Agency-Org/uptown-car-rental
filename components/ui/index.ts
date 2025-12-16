@@ -8,7 +8,7 @@ export { Input, inputVariants, type InputProps } from "./Input";
 export { Textarea, textareaVariants, type TextareaProps } from "./Textarea";
 export { Select, selectVariants, type SelectProps, type SelectOption } from "./Select";
 export { FilterGroup, type FilterItem } from "./FilterGroup";
-export { MobileDrawer } from "./MobileDrawer";
+export { Drawer, MobileDrawer } from "./MobileDrawer";
 export { SpeedometerGauge } from "./SpeedometerGauge";
 export { TestimonialsColumn, type Testimonial } from "./TestimonialsColumn";
 export { InitialsAvatar } from "./InitialsAvatar";

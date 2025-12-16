@@ -6,6 +6,7 @@ import { Heading, Text, Badge, Button, Section } from "@/components/ui";
 import { RevealOnScroll } from "@/components/animation";
 import cars from "@/data/cars-data";
 import { cn } from "@/lib/utils";
+import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp";
 
 const PHONE_NUMBER = "+971586877777";
 const WHATSAPP_BASE_URL = "https://api.whatsapp.com/send";
@@ -56,11 +57,10 @@ export function BookingSection() {
               Quick Booking
             </Badge>
             <Heading as="h2" size="2xl" className="mb-4">
-              Reserve Your Luxury Ride
+              We Handle Everything. You Just Drive.
             </Heading>
             <Text color="muted" size="lg" className="mb-8">
-              Fill in your details and we&apos;ll get back to you with the best
-              options and pricing within minutes.
+              Tell us when and where. We&apos;ll take care of the rest.
             </Text>
 
             <div className="space-y-4">
@@ -138,9 +138,9 @@ export function BookingSection() {
                 variant="whatsapp"
                 size="lg"
                 className="w-full mt-4"
-                leftIcon={<MessageCircle className="w-5 h-5" />}
+                leftIcon={<FaWhatsapp className="w-5 h-5" />}
               >
-                Send Inquiry via WhatsApp
+                Get Quote on WhatsApp
               </Button>
             </div>
           </RevealOnScroll>
@@ -149,7 +149,7 @@ export function BookingSection() {
           <RevealOnScroll className="lg:pl-8">
             <div className="bg-background-elevated  border border-border rounded-md p-8">
               <Heading as="h3" size="md" className="mb-6">
-                Prefer to Talk?
+                Talk to Our Team
               </Heading>
               <Text color="muted" className="mb-8">
                 Our team is available 24/7 to assist you with your booking,
@@ -178,11 +178,11 @@ export function BookingSection() {
                   href={`${WHATSAPP_BASE_URL}?phone=${PHONE_NUMBER.replace(/\+/g, "")}&text=${encodeURIComponent("Hello Uptown Rent a Car, I'm interested in renting a car. Please share your prices and current offers.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variant="outline"
+                  variant="whatsappOutline"
                   size="lg"
                   className="w-full justify-start"
                 >
-                  <MessageCircle className="w-5 h-5 mr-3" />
+                  <FaWhatsapp className="w-5 h-5 mr-3" />
                   <span className="flex flex-col items-start">
                     <span className="text-xs text-foreground-muted">
                       WhatsApp
@@ -197,7 +197,7 @@ export function BookingSection() {
                 <Text size="sm" color="muted" className="mb-2">
                   Business Hours
                 </Text>
-                <Text weight="semibold">24/7 - Always Open</Text>
+                <Text weight="semibold">Open 24/7</Text>
                 <Text size="sm" color="muted" className="mt-1">
                   Free delivery anywhere in Dubai
                 </Text>

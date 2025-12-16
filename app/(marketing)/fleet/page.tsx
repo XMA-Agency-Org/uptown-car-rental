@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { SlidersHorizontal } from "lucide-react";
-import { Button, MobileDrawer, Section } from "@/components/ui";
+import { Button, Drawer, Section } from "@/components/ui";
 import { PageHero } from "@/components/sections/shared";
 import { FleetFilters, FleetGrid } from "@/components/sections/fleet";
 
@@ -19,40 +19,28 @@ function FleetContent() {
 
       {/* Fleet Grid with Filters */}
       <Section spacing="none" className="pb-24">
-          <div className="flex lg:gap-12">
-            {/* Desktop Filters Sidebar */}
-            <div className="hidden lg:block w-64 shrink-0">
-              <FleetFilters />
-            </div>
+        {/* Filter Button */}
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-30">
+          <Button
+            onClick={() => setIsFilterOpen(true)}
+            leftIcon={<SlidersHorizontal className="w-4 h-4" />}
+            className="shadow-lg"
+          >
+            Filters
+          </Button>
+        </div>
 
-            {/* Mobile Filter Button */}
-            <div className="lg:hidden fixed bottom-24 left-1/2 -translate-x-1/2 z-30">
-              <Button
-                onClick={() => setIsFilterOpen(true)}
-                leftIcon={<SlidersHorizontal className="w-4 h-4" />}
-                className="shadow-lg"
-              >
-                Filters
-              </Button>
-            </div>
+        {/* Filter Drawer */}
+        <Drawer
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          title="Filters"
+        >
+          <FleetFilters onClose={() => setIsFilterOpen(false)} />
+        </Drawer>
 
-            {/* Mobile Filter Drawer */}
-            <MobileDrawer
-              isOpen={isFilterOpen}
-              onClose={() => setIsFilterOpen(false)}
-              title="Filters"
-            >
-              <FleetFilters
-                isOpen={isFilterOpen}
-                onClose={() => setIsFilterOpen(false)}
-              />
-            </MobileDrawer>
-
-            {/* Car Grid */}
-            <div className="flex-1 min-w-0">
-              <FleetGrid />
-            </div>
-          </div>
+        {/* Car Grid */}
+        <FleetGrid />
       </Section>
     </>
   );

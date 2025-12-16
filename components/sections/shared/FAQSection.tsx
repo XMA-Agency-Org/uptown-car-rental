@@ -81,11 +81,11 @@ export function FAQSection({
               FAQ
             </Badge>
             <Heading as="h2" size="2xl" className="mb-6">
-              Frequently Asked Questions
+              Before You Ask
             </Heading>
             <Text color="muted" size="lg" className="max-w-2xl mx-auto">
-              Everything you need to know about renting a luxury car in Dubai.
-              Can&apos;t find what you&apos;re looking for? Contact us directly.
+              Quick answers to common questions. Still unsure? We&apos;re a
+              WhatsApp away.
             </Text>
           </RevealOnScroll>
         )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Star, Wrench, Clock, Car, Sparkles, CreditCard } from "lucide-react";
+import { Star, Wrench, Clock, Car, Sparkles, CheckCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface GaugeSlide {
@@ -12,34 +12,24 @@ interface GaugeSlide {
 
 export const gaugeSlides: GaugeSlide[] = [
   {
-    icon: Star,
-    label: "5 Star Rated",
-    description: "Premium service quality",
-  },
-  {
-    icon: Wrench,
-    label: "Roadside Assistance",
-    description: "24/7 emergency support",
-  },
-  {
     icon: Clock,
-    label: "24/7 Service",
-    description: "Always available",
+    label: "24/7 Support",
+    description: "Help when you need it, day or night",
   },
   {
     icon: Car,
-    label: "Newest Models",
-    description: "Latest vehicle lineup",
+    label: "Car Waiting",
+    description: "Landed at 4am? Your car's already there",
   },
   {
     icon: Sparkles,
-    label: "Clean Vehicles",
-    description: "Sanitized & detailed",
+    label: "Pristine Condition",
+    description: "Every car, spotless and ready",
   },
   {
-    icon: CreditCard,
-    label: "Cards Accepted",
-    description: "Flexible payments",
+    icon: Wrench,
+    label: "Free Delivery",
+    description: "To your hotel, airport, anywhere",
   },
 ];
 
@@ -172,7 +162,7 @@ export function SpeedometerGauge({
         }}
       >
         {/* Slide content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
           <motion.div
             key={activeIndex}
             initial={{ scale: 0.8, opacity: 0 }}
@@ -205,8 +195,7 @@ export function SpeedometerGauge({
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.15 }}
-            className="text-sm sm:text-base"
-            style={{ color: "oklch(0.65 0.1 50)" }}
+            className="text-sm sm:text-base max-w-[200px] text-center text-foreground-muted"
           >
             {currentSlide.description}
           </motion.p>

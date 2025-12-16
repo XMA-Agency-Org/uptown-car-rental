@@ -10,9 +10,9 @@ import {
 import { FAQSection } from "@/components/sections/shared";
 
 export const metadata: Metadata = {
-  title: "Luxury Car Rental Dubai | Uptown Rent a Car",
+  title: "Luxury Car Rental Dubai | Free Delivery | Uptown",
   description:
-    "Premium luxury car rental in Dubai. Rent Rolls Royce, Lamborghini, Ferrari, Bentley and more exotic cars. 24/7 delivery, competitive prices.",
+    "Rent Rolls Royce, Lamborghini, Ferrari from 250 AED/day. Free delivery to your hotel or airport. 24/7 service. Rated 4.9 stars.",
 };
 
 export default function HomePage() {
@@ -22,29 +22,33 @@ export default function HomePage() {
 
       <CategorySection
         id="featured-cars"
-        title="Featured Cars"
-        subtitle="Editor's Choice"
-        description="Our hand-picked selection of the finest luxury vehicles from our exclusive collection."
+        subtitle="Featured Cars"
+        description="The cars our customers keep coming back for. Smooth from start to finish."
+        title="Cars Popular with our Customers"
         category="featured"
         viewAllHref="/fleet"
+        ctaText="View All Featured Cars"
       />
 
       <CategorySection
         id="exotic-cars"
-        title="Exotic Cars"
-        subtitle="Pure Adrenaline"
-        description="Turn heads with our exclusive collection of Lamborghinis, Ferraris, and the world's most coveted supercars."
+        subtitle="Exotic Cars"
+        title="Enjoy the thrill of the experience"
+        description="Lamborghini, Ferrari, McLaren. The experience lives up to the car."
         category="exotic"
         viewAllHref="/fleet/body-type/supercar"
+        ctaText="View All Exotic Cars"
       />
+
 
       <CategorySection
         id="suv-collection"
-        title="Luxury SUVs"
-        subtitle="Command The Road"
-        description="Dominate Dubai's streets with our premium SUV collection. Perfect for families, groups, or those who demand presence."
+        subtitle="Luxury SUVs"
+        title="Bring the whole crew"
+        description="For the trips where it's not just you. Room for the people and room for the bags." 
         category="suv"
         viewAllHref="/fleet/body-type/suv"
+        ctaText="View All Luxury SUVs"
       />
 
       {/* <CategorySection */}

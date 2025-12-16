@@ -47,9 +47,7 @@ export function HeroSection() {
           {/* Main Headline */}
           <motion.div variants={heroTitle} initial="initial" animate="animate">
             <Heading as="h1" size="hero" className="mb-6">
-              <span className={`capitalize`}>
-                Luxury cars in Dubai, deposit free
-              </span>
+              Any luxury car you desire, delivered clean, anywhere in Dubai
             </Heading>
           </motion.div>
 
@@ -64,8 +62,7 @@ export function HeroSection() {
               color="muted"
               className="max-w-2xl mx-auto mb-10 leading-relaxed"
             >
-              Experience the ultimate in luxury car rental. From Rolls Royce to
-              Lamborghini, discover Dubai in unparalleled style.
+              From Rolls Royce to Lamborghini. One WhatsApp message, car at your door by morning.
             </Text>
           </motion.div>
 

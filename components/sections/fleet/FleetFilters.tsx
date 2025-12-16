@@ -2,17 +2,14 @@
 
 import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal } from "lucide-react";
-import { Button, Text, FilterGroup } from "@/components/ui";
+import { Button, FilterGroup } from "@/components/ui";
 import { CAR_BODY_TYPES, CAR_BRANDS, PRICE_RANGES } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 interface FleetFiltersProps {
-  isOpen?: boolean;
   onClose?: () => void;
 }
 
-export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
+export function FleetFilters({ onClose }: FleetFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -42,31 +39,18 @@ export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
   const hasActiveFilters = currentCategory || currentBrand || currentPriceRange;
 
   return (
-    <aside
-      className={cn(
-        "lg:sticky lg:top-24 space-y-8",
-        isOpen ? "block" : "hidden lg:block"
-      )}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-5 h-5 text-primary-500" />
-          <Text weight="semibold" size="lg">
-            Filters
-          </Text>
-        </div>
-        {hasActiveFilters && (
+    <div className="space-y-8">
+      {hasActiveFilters && (
+        <div className="flex justify-end">
           <button
             onClick={clearAllFilters}
             className="text-sm text-primary-500 hover:text-primary-400 transition-colors"
           >
             Clear all
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Body Type Filter */}
       <FilterGroup
         title="Body Type"
         items={CAR_BODY_TYPES}
@@ -75,7 +59,6 @@ export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
         allOptionId="all"
       />
 
-      {/* Brand Filter */}
       <FilterGroup
         title="Brand"
         items={CAR_BRANDS}
@@ -84,7 +67,6 @@ export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
         scrollable
       />
 
-      {/* Price Range Filter */}
       <FilterGroup
         title="Daily Price"
         items={PRICE_RANGES}
@@ -92,12 +74,11 @@ export function FleetFilters({ isOpen, onClose }: FleetFiltersProps) {
         onChange={(value) => updateFilter("price", value)}
       />
 
-      {/* Close button for mobile */}
       {onClose && (
-        <Button onClick={onClose} variant="secondary" className="w-full lg:hidden">
+        <Button onClick={onClose} className="w-full">
           Apply Filters
         </Button>
       )}
-    </aside>
+    </div>
   );
 }

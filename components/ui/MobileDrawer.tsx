@@ -5,22 +5,38 @@ import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface MobileDrawerProps {
+type DrawerSide = "left" | "right";
+
+interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
   className?: string;
+  side?: DrawerSide;
 }
 
-export function MobileDrawer({
+const slideVariants = {
+  left: {
+    initial: { x: "-100%" },
+    animate: { x: 0 },
+    exit: { x: "-100%" },
+  },
+  right: {
+    initial: { x: "100%" },
+    animate: { x: 0 },
+    exit: { x: "100%" },
+  },
+};
+
+export function Drawer({
   isOpen,
   onClose,
   title,
   children,
   className,
-}: MobileDrawerProps) {
-  // Prevent body scroll when drawer is open
+  side = "left",
+}: DrawerProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -32,31 +48,31 @@ export function MobileDrawer({
     };
   }, [isOpen]);
 
+  const variants = slideVariants[side];
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
           />
 
-          {/* Drawer */}
           <motion.div
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
+            initial={variants.initial}
+            animate={variants.animate}
+            exit={variants.exit}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className={cn(
-              "fixed inset-y-0 left-0 w-full max-w-sm bg-background-elevated border-r border-border z-50 lg:hidden flex flex-col",
+              "fixed inset-y-0 w-full max-w-sm bg-background-elevated border-border z-50 flex flex-col",
+              side === "left" ? "left-0 border-r" : "right-0 border-l",
               className
             )}
           >
-            {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border">
               {title && (
                 <h2 className="text-lg font-semibold text-foreground">{title}</h2>
@@ -69,7 +85,6 @@ export function MobileDrawer({
               </button>
             </div>
 
-            {/* Content */}
             <div className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</div>
           </motion.div>
         </>
@@ -77,3 +92,5 @@ export function MobileDrawer({
     </AnimatePresence>
   );
 }
+
+export { Drawer as MobileDrawer };

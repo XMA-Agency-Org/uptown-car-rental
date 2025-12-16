@@ -22,6 +22,8 @@ const buttonVariants = cva(
           "bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-500/10 active:bg-primary-500/20 backdrop-blur-sm",
         whatsapp:
           "bg-[oklch(0.55_0.17_142)] text-white hover:bg-[oklch(0.50_0.17_142)] active:bg-[oklch(0.45_0.17_142)]",
+        whatsappOutline:
+          "text-[oklch(0.55_0.17_142)] hover:text-white active:text-white border border-green-500 hover:border-green-600 active:border-green-700 hover:bg-green-500/10 active:bg-green-500/20 backdrop-blur-sm",
       },
       size: {
         sm: "h-11 px-4 text-sm gap-2",

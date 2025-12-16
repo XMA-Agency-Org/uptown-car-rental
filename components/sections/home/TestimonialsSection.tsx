@@ -163,12 +163,11 @@ export function TestimonialsSection() {
           </Badge>
 
           <Heading as="h2" size="2xl" className="mt-5 text-center">
-            What Our Customers Say
+            4.9 Stars. 2,664 Reviews.
           </Heading>
 
           <Text color="muted" size="lg" className="text-center mt-5 max-w-md">
-            Join thousands of satisfied customers who trust Uptown Rent a Car
-            for their luxury driving experience in Dubai.
+            Real reviews from real customers. No filtering, no editing.
           </Text>
 
           <div className="mt-6">

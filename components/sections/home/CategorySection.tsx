@@ -32,6 +32,7 @@ interface CategorySectionProps {
   category: CategoryId;
   viewAllHref?: string;
   alternateBackground?: boolean;
+  ctaText?: string;
 }
 
 export function CategorySection({
@@ -42,6 +43,7 @@ export function CategorySection({
   category,
   viewAllHref = "/fleet",
   alternateBackground = false,
+  ctaText
 }: CategorySectionProps) {
   const filterFn = categoryFilters[category];
   const filteredCars = cars
@@ -91,7 +93,7 @@ export function CategorySection({
       <Container>
         <RevealOnScroll className="mt-12 text-center">
           <Button as={Link} href={viewAllHref} variant="outline" size="lg">
-            View All {title}
+            {ctaText || "View All"}
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </RevealOnScroll>
