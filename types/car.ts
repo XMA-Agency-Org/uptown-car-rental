@@ -44,7 +44,7 @@ export interface CarSpecs {
   horsepower: number;
   acceleration: string;
   topSpeed: number;
-  transmission: "Automatic" | "Manual" | "DCT" | "PDK";
+  transmission: "Automatic" | "Manual" | "Dual-Clutch" | "PDK";
   fuelType: "Petrol" | "Diesel" | "Hybrid" | "Electric";
   seats: number;
   doors: number;
