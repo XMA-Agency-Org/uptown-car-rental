@@ -19,9 +19,9 @@ export function PricingCard({ car }: PricingCardProps) {
   return (
     <motion.div className="lg:sticky lg:top-24 lg:p-6 lg:bg-background-elevated lg:border lg:border-border rounded-lg">
       {/* Price Display */}
-      <Text size="2xl" weight="semibold" className="mb-4">
+      <Heading as="h1" size="2xl" className="mb-4">
         {carName}
-      </Text>
+      </Heading>
       <div className="mb-6">
         <Text size="sm" color="muted" className="mb-1">
           Starting from
