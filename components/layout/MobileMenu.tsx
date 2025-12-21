@@ -73,9 +73,9 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 <Image
                   src="/logo-wide.png"
                   alt="Uptown"
-                  width={120}
-                  height={120}
-                  className="object-contain"
+                  width={187}
+                  height={57}
+                  className="h-10 w-auto"
                 />
                 <button
                   onClick={onClose}

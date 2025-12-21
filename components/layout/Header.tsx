@@ -46,9 +46,9 @@ export function Header() {
               <Image
                 src="/logo-wide.png"
                 alt="Uptown Rent a Car"
-                className="h-8 md:h-10 w-fit"
-                width={120}
-                height={120}
+                className="h-8 md:h-10 w-auto"
+                width={187}
+                height={57}
                 priority
               />
             </Link>
