@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input, Text } from "@/components/ui";
@@ -132,15 +131,10 @@ export function CarsDropdown({ className }: CarsDropdownProps) {
         />
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[800px] p-6 bg-background-elevated border border-border rounded-md"
-          >
+      {isOpen && (
+        <div
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[800px] p-6 bg-background-elevated border border-border rounded-md animate-dropdown-in"
+        >
             <div className="grid grid-cols-3 gap-6">
               {/* Column 1: Brands */}
               <div className="space-y-3">
@@ -314,9 +308,8 @@ export function CarsDropdown({ className }: CarsDropdownProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 }

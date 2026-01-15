@@ -1,14 +1,10 @@
-"use client";
-
 import { forwardRef } from "react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // Base styles - using CSS variable for border radius
-  "relative cursor-pointer inline-flex items-center justify-center font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 rounded-md",
+  "relative cursor-pointer inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 rounded-md hover:scale-[1.02] active:scale-[0.98]",
   {
     variants: {
       variant: {
@@ -37,9 +33,6 @@ const buttonVariants = cva(
     },
   }
 );
-
-const buttonHover = { scale: 1.02, transition: { duration: 0.2 } };
-const buttonTap = { scale: 0.98, transition: { duration: 0.1 } };
 
 interface ButtonProps extends VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
@@ -119,52 +112,39 @@ export const Button = forwardRef<
       </>
     );
 
-    // Render as Next.js Link
     if (as === Link && href) {
       return (
-        <motion.span
-          whileHover={!disabled && !isLoading ? buttonHover : undefined}
-          whileTap={!disabled && !isLoading ? buttonTap : undefined}
-          className="inline-block"
-        >
-          <Link href={href} className={classes}>
-            {content}
-          </Link>
-        </motion.span>
+        <Link href={href} className={classes}>
+          {content}
+        </Link>
       );
     }
 
-    // Render as anchor
     if (as === "a" && href) {
       return (
-        <motion.a
+        <a
           ref={ref as React.Ref<HTMLAnchorElement>}
           href={href}
           target={target}
           rel={rel}
           className={classes}
-          whileHover={!disabled && !isLoading ? buttonHover : undefined}
-          whileTap={!disabled && !isLoading ? buttonTap : undefined}
           onClick={onClick}
         >
           {content}
-        </motion.a>
+        </a>
       );
     }
 
-    // Render as button (default)
     return (
-      <motion.button
+      <button
         ref={ref as React.Ref<HTMLButtonElement>}
         type={type}
         className={classes}
-        whileHover={!disabled && !isLoading ? buttonHover : undefined}
-        whileTap={!disabled && !isLoading ? buttonTap : undefined}
         disabled={disabled || isLoading}
         onClick={onClick}
       >
         {content}
-      </motion.button>
+      </button>
     );
   }
 );

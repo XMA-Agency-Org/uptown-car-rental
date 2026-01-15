@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import { Menu, Phone } from "lucide-react";
 import { Navigation } from "./Navigation";
 import { MobileMenu } from "./MobileMenu";
@@ -10,7 +9,6 @@ import { Container, Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { COMPANY } from "@/lib/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
-import { navSlideDown } from "@/lib/animations";
 import Image from "next/image";
 
 export function Header() {
@@ -29,7 +27,7 @@ export function Header() {
 
   return (
     <>
-      <motion.header
+      <header
         className={cn(
           "fixed top-0 left-0 py-6 right-0 z-50 transition-all duration-300 border",
           isScrolled ? "glass" : "bg-transparent border-transparent",
@@ -45,10 +43,11 @@ export function Header() {
             >
               <Image
                 src="/logo-wide.png"
-                alt="Uptown Rent a Car"
+                alt="XMA Car Rental"
                 className="h-8 md:h-10 w-auto"
-                width={187}
-                height={57}
+                width={132}
+                height={40}
+                sizes="132px"
                 priority
               />
             </Link>
@@ -91,7 +90,7 @@ export function Header() {
             </div>
           </div>
         </Container>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <MobileMenu

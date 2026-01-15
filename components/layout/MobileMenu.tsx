@@ -72,9 +72,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <div className="flex items-center justify-between mb-8">
                 <Image
                   src="/logo-wide.png"
-                  alt="Uptown"
-                  width={187}
-                  height={57}
+                  alt="XMA Car Rental"
+                  width={132}
+                  height={40}
+                  sizes="132px"
                   className="h-10 w-auto"
                 />
                 <button

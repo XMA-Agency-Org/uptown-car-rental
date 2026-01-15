@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
-import { Star, Wrench, Clock, Car, Sparkles, CheckCircle } from "lucide-react";
+import { Wrench, Clock, Car, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface GaugeSlide {
@@ -163,12 +162,9 @@ export function SpeedometerGauge({
       >
         {/* Slide content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-          <motion.div
+          <div
             key={activeIndex}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-3"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-3 animate-gauge-icon-in"
             style={{
               background: "oklch(0.4 0.08 50 / 0.5)",
             }}
@@ -178,39 +174,34 @@ export function SpeedometerGauge({
               style={{ color: "oklch(0.7 0.15 50)" }}
               strokeWidth={1.5}
             />
-          </motion.div>
+          </div>
 
-          <motion.h3
+          <h3
             key={`label-${activeIndex}`}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="text-lg sm:text-xl font-semibold text-white mb-1"
+            className="text-lg sm:text-xl font-semibold text-white mb-1 animate-gauge-text-in"
+            style={{ animationDelay: "0.1s" }}
           >
             {currentSlide.label}
-          </motion.h3>
+          </h3>
 
-          <motion.p
+          <p
             key={`desc-${activeIndex}`}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-            className="text-sm sm:text-base max-w-[200px] text-center text-foreground-muted"
+            className="text-sm sm:text-base max-w-[200px] text-center text-foreground-muted animate-gauge-text-in"
+            style={{ animationDelay: "0.15s" }}
           >
             {currentSlide.description}
-          </motion.p>
+          </p>
         </div>
 
         {/* Needle assembly - rotates based on active slide */}
-        <motion.div
-          className="absolute"
+        <div
+          className="absolute transition-transform duration-700 ease-out"
           style={{
             bottom: "18%",
             left: "50%",
             transformOrigin: "0 0",
+            transform: `rotate(${needleRotation}deg)`,
           }}
-          animate={{ rotate: needleRotation }}
-          transition={{ type: "spring", stiffness: 50, damping: 12 }}
         >
           {/* Needle pointer */}
           <div
@@ -240,7 +231,7 @@ export function SpeedometerGauge({
               borderRadius: "0 0 3px 3px",
             }}
           />
-        </motion.div>
+        </div>
 
         {/* Needle pivot point */}
         <div

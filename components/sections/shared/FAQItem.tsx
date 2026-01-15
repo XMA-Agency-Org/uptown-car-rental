@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { Heading, Text } from "@/components/ui";
 import { cn } from "@/lib/utils";
@@ -20,6 +19,7 @@ export function FAQItem({ question, answer, defaultOpen = false }: FAQItemProps)
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-5 flex items-center justify-between gap-4 text-left group"
+        aria-expanded={isOpen}
       >
         <Heading
           as="h3"
@@ -38,21 +38,18 @@ export function FAQItem({ question, answer, defaultOpen = false }: FAQItemProps)
           )}
         />
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <Text color="muted" className="pb-5">
-              {answer}
-            </Text>
-          </motion.div>
+      <div
+        className={cn(
+          "grid transition-all duration-300 ease-in-out",
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         )}
-      </AnimatePresence>
+      >
+        <div className="overflow-hidden">
+          <Text color="muted" className="pb-5">
+            {answer}
+          </Text>
+        </div>
+      </div>
     </div>
   );
 }
