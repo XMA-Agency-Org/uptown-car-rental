@@ -1,7 +1,4 @@
-"use client";
-
 import { Section, Heading, Text } from "@/components/ui";
-import { RevealOnScroll } from "@/components/animation";
 
 interface PolicySectionProps {
   title: string;
@@ -10,14 +7,12 @@ interface PolicySectionProps {
 
 function PolicySection({ title, children }: PolicySectionProps) {
   return (
-    <RevealOnScroll>
-      <div className="mb-12">
-        <Heading as="h2" size="md" className="mb-4">
-          {title}
-        </Heading>
-        <div className="space-y-4 text-foreground-muted">{children}</div>
-      </div>
-    </RevealOnScroll>
+    <div className="mb-12">
+      <Heading as="h2" size="md" className="mb-4">
+        {title}
+      </Heading>
+      <div className="space-y-4 text-foreground-muted">{children}</div>
+    </div>
   );
 }
 
@@ -25,31 +20,29 @@ export function PrivacyContent() {
   return (
     <Section spacing="lg">
       <div className="max-w-4xl">
-        <RevealOnScroll>
-          <Text color="muted" className="mb-12 leading-relaxed">
-            Your privacy is important to you and to us. Uptown Rent A Car is
-            committed to protecting its members, website visitors, and app
-            users&apos; privacy. The following Privacy and Cookie Policy
-            outlines the information Uptown Rent A Car may process and how we
-            may use that information to better serve users while using our
-            website, mobile application, and services.
-          </Text>
-          <Text color="muted" className="mb-12 leading-relaxed">
-            If you have questions about this Privacy and Cookie Policy, please
-            contact us at{" "}
-            <a
-              href="mailto:info@uptowndxb.com"
-              className="text-primary-500 hover:underline"
-            >
-              info@uptowndxb.com
-            </a>
-          </Text>
-        </RevealOnScroll>
+        <Text color="muted" className="mb-12 leading-relaxed">
+          Your privacy is important to you and to us. XMA Car Rental is
+          committed to protecting its members, website visitors, and app
+          users&apos; privacy. The following Privacy and Cookie Policy
+          outlines the information XMA Car Rental may process and how we
+          may use that information to better serve users while using our
+          website, mobile application, and services.
+        </Text>
+        <Text color="muted" className="mb-12 leading-relaxed">
+          If you have questions about this Privacy and Cookie Policy, please
+          contact us at{" "}
+          <a
+            href="mailto:info@xmacarrental.com"
+            className="text-primary-500 hover:underline"
+          >
+            info@xmacarrental.com
+          </a>
+        </Text>
 
         <PolicySection title="Definitions">
           <Text color="muted">
             <strong>&quot;User&quot;</strong> means a person who has signed up
-            and has a booking with Uptown Rent A Car for the use or potential
+            and has a booking with XMA Car Rental for the use or potential
             use of the Service.
           </Text>
         </PolicySection>
@@ -159,7 +152,7 @@ export function PrivacyContent() {
             bound not to disclose or use it for any other purpose.
           </Text>
           <Text color="muted">
-            Uptown Rent A Car will disclose your personal data to the extent
+            XMA Car Rental will disclose your personal data to the extent
             that this is legally required, or necessary for the establishment,
             exercise or defense of legal claims and legal process; or in the
             event of an emergency pertaining to your health and/or safety.
@@ -170,10 +163,10 @@ export function PrivacyContent() {
             you would like a copy of the information held on you, please write
             to{" "}
             <a
-              href="mailto:info@uptowndxb.com"
+              href="mailto:info@xmacarrental.com"
               className="text-primary-500 hover:underline"
             >
-              info@uptowndxb.com
+              info@xmacarrental.com
             </a>
           </Text>
           <Text color="muted">

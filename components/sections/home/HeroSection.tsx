@@ -1,12 +1,8 @@
 "use client";
 
 import { Suspense } from "react";
-import { motion } from "motion/react";
-import { MessageCircle, Search } from "lucide-react";
-import { Container, Button, Heading, Text, Badge, Section } from "@/components/ui";
-import { getWhatsAppUrl } from "@/lib/utils";
-import { heroTitle, heroSubtitle, heroCTA } from "@/lib/animations";
-import Link from "next/link";
+import { Search } from "lucide-react";
+import { Container, Heading, Text, Section } from "@/components/ui";
 import Image from "next/image";
 import BgPic from "@/public/banner.png";
 import { BrandMarquee } from "./BrandMarquee";
@@ -45,39 +41,23 @@ export function HeroSection() {
       {/* Content */}
       <Container className="relative z-30 pt-32 pb-20 flex-1 flex items-center justify-center">
         <div className="max-w-6xl mx-auto text-center">
-          {/* Main Headline */}
-          <motion.div variants={heroTitle} initial="initial" animate="animate">
-            <Heading as="h1" size="hero" className="mb-6">
-              Any luxury car you desire, delivered clean, anywhere in Dubai
-            </Heading>
-          </motion.div>
+          <Heading as="h1" size="hero" className="mb-6">
+            Any luxury car you desire, delivered clean, anywhere in Dubai
+          </Heading>
 
-          {/* Subheadline */}
-          <motion.div
-            variants={heroSubtitle}
-            initial="initial"
-            animate="animate"
+          <Text
+            size="xl"
+            color="muted"
+            className="max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            <Text
-              size="xl"
-              color="muted"
-              className="max-w-2xl mx-auto mb-10 leading-relaxed"
-            >
-              From Rolls Royce to Lamborghini. One WhatsApp message, car at your door by morning.
-            </Text>
-          </motion.div>
+            From Rolls Royce to Lamborghini. One WhatsApp message, car at your door by morning.
+          </Text>
 
-          {/* Search */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-10 max-w-2xl mx-auto"
-          >
+          <div className="mb-10 max-w-2xl mx-auto">
             <Suspense fallback={<SearchFallback />}>
               <VehicleSearch />
             </Suspense>
-          </motion.div>
+          </div>
         </div>
       </Container>
 

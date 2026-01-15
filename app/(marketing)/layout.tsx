@@ -1,5 +1,10 @@
+import dynamic from "next/dynamic";
 import { Header, Footer } from "@/components/layout";
-import { WhatsAppCTA } from "@/components/features";
+
+const WhatsAppCTA = dynamic(
+  () => import("@/components/features/WhatsAppCTA").then((mod) => mod.WhatsAppCTA),
+  { ssr: false }
+);
 
 export default function MarketingLayout({
   children,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Rubik_Dirt, Bebas_Neue, Zen_Dots, Orbitron, Zain, Outfit } from "next/font/google";
+import { Inter, Bebas_Neue, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,8 +24,8 @@ const bebasNeue = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: {
-    default: "Uptown Rent a Car | Luxury Car Rental Dubai",
-    template: "%s | Uptown Dubai",
+    default: "XMA Car Rental | Luxury Car Rental Dubai",
+    template: "%s | XMA Car Rental",
   },
   description:
     "Experience premium luxury car rental in Dubai. Rent Rolls Royce, Lamborghini, Ferrari, Bentley & more. Starting from 250 AED/day. 24/7 service.",
@@ -41,24 +41,24 @@ export const metadata: Metadata = {
     "premium car hire",
     "dubai car rental",
   ],
-  authors: [{ name: "Uptown Rent a Car" }],
-  creator: "Uptown Rent a Car",
-  publisher: "Uptown Rent a Car",
+  authors: [{ name: "XMA Car Rental" }],
+  creator: "XMA Car Rental",
+  publisher: "XMA Car Rental",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://uptowndxb.com"),
+  metadataBase: new URL("https://xmacarrental.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_AE",
-    url: "https://uptowndxb.com",
-    siteName: "Uptown Rent a Car",
-    title: "Uptown Rent a Car | Luxury Car Rental Dubai",
+    url: "https://xmacarrental.com",
+    siteName: "XMA Car Rental",
+    title: "XMA Car Rental | Luxury Car Rental Dubai",
     description:
       "Experience premium luxury car rental in Dubai. Rent Rolls Royce, Lamborghini, Ferrari, Bentley & more.",
     images: [
@@ -66,13 +66,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Uptown Rent a Car - Luxury Car Rental Dubai",
+        alt: "XMA Car Rental - Luxury Car Rental Dubai",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uptown Rent a Car | Luxury Car Rental Dubai",
+    title: "XMA Car Rental | Luxury Car Rental Dubai",
     description:
       "Experience premium luxury car rental in Dubai. Rent Rolls Royce, Lamborghini, Ferrari & more.",
     images: ["/og-image.jpg"],

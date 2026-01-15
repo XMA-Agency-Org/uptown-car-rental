@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { Button, Heading, Text } from "@/components/ui";
 import { formatPrice, getCarInquiryUrl, cn } from "@/lib/utils";
 import {
@@ -14,6 +13,7 @@ import {
 
 export function StandardCarCard({
   car,
+  index = 0,
   showBadge = true,
   showInquiryButton = true,
   showSpecs = true,
@@ -25,11 +25,9 @@ export function StandardCarCard({
   const displayFeaturedBadge = showFeaturedBadge ?? car.isFeatured;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <div
+      className="reveal-on-scroll"
+      style={{ "--stagger-index": index } as React.CSSProperties}
     >
       <Link href={`/cars/${car.slug}`} className="group block h-full">
         <div
@@ -45,6 +43,7 @@ export function StandardCarCard({
               src={primaryImage?.src || "/images/cars/placeholder.jpg"}
               alt={car.name}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
             />
 
@@ -111,6 +110,6 @@ export function StandardCarCard({
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 }

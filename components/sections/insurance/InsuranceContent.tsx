@@ -1,7 +1,4 @@
-"use client";
-
 import { Section, Heading, Text } from "@/components/ui";
-import { RevealOnScroll } from "@/components/animation";
 import { Shield, Car, AlertTriangle, Wrench } from "lucide-react";
 
 interface InsuranceSectionProps {
@@ -12,21 +9,19 @@ interface InsuranceSectionProps {
 
 function InsuranceSection({ title, children, icon }: InsuranceSectionProps) {
   return (
-    <RevealOnScroll>
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          {icon && (
-            <div className="p-2 rounded-lg bg-primary-500/10 text-primary-500">
-              {icon}
-            </div>
-          )}
-          <Heading as="h2" size="md">
-            {title}
-          </Heading>
-        </div>
-        <div className="space-y-4 text-foreground-muted">{children}</div>
+    <div className="mb-12">
+      <div className="flex items-center gap-3 mb-4">
+        {icon && (
+          <div className="p-2 rounded-lg bg-primary-500/10 text-primary-500">
+            {icon}
+          </div>
+        )}
+        <Heading as="h2" size="md">
+          {title}
+        </Heading>
       </div>
-    </RevealOnScroll>
+      <div className="space-y-4 text-foreground-muted">{children}</div>
+    </div>
   );
 }
 
@@ -72,26 +67,23 @@ export function InsuranceContent() {
   return (
     <Section spacing="lg">
       <div className="max-w-4xl">
-        <RevealOnScroll>
-          <Text color="muted" className="mb-8 leading-relaxed">
-            Uptown Rent A Car LLC offers additional protection products that you
-            can purchase along with your rental vehicle. We offer our customers
-            Damage Waiver, Supplemental Liability Protection, and Roadside
-            Assistance Protection.
+        <Text color="muted" className="mb-8 leading-relaxed">
+          XMA Car Rental offers additional protection products that you
+          can purchase along with your rental vehicle. We offer our customers
+          Damage Waiver, Supplemental Liability Protection, and Roadside
+          Assistance Protection.
+        </Text>
+        <HighlightBox>
+          <Text color="muted">
+            Please see below for more information about our insurance and
+            protection products and what they cover.
           </Text>
-          <HighlightBox>
-            <Text color="muted">
-              Please see below for more information about our insurance and
-              protection products and what they cover.
-            </Text>
-          </HighlightBox>
-        </RevealOnScroll>
+        </HighlightBox>
 
         <div className="my-12">
-          <RevealOnScroll>
-            <Heading as="h2" size="lg" className="mb-6">
-              Definitions
-            </Heading>
+          <Heading as="h2" size="lg" className="mb-6">
+            Definitions
+          </Heading>
             <div className="space-y-4">
               <Text color="muted">
                 <strong>Abnormal use:</strong> means that your use of the
@@ -124,7 +116,6 @@ export function InsuranceContent() {
                 it is stolen and we do not get it back.
               </Text>
             </div>
-          </RevealOnScroll>
         </div>
 
         <InsuranceSection

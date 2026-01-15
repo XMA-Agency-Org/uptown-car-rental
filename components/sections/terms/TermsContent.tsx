@@ -1,7 +1,4 @@
-"use client";
-
 import { Section, Heading, Text } from "@/components/ui";
-import { RevealOnScroll } from "@/components/animation";
 
 interface TermsSectionProps {
   title: string;
@@ -10,14 +7,12 @@ interface TermsSectionProps {
 
 function TermsSection({ title, children }: TermsSectionProps) {
   return (
-    <RevealOnScroll>
-      <div className="mb-12">
-        <Heading as="h2" size="md" className="mb-4">
-          {title}
-        </Heading>
-        <div className="space-y-4 text-foreground-muted">{children}</div>
-      </div>
-    </RevealOnScroll>
+    <div className="mb-12">
+      <Heading as="h2" size="md" className="mb-4">
+        {title}
+      </Heading>
+      <div className="space-y-4 text-foreground-muted">{children}</div>
+    </div>
   );
 }
 
@@ -49,13 +44,11 @@ export function TermsContent() {
   return (
     <Section spacing="lg">
       <div className="max-w-4xl">
-        <RevealOnScroll>
-          <Text color="muted" className="mb-12 leading-relaxed">
-            These Terms and Conditions govern the rental services provided by
-            Uptown Rent A Car LLC. By renting a vehicle from Uptown Rent A Car
-            LLC, you agree to the following terms and conditions:
-          </Text>
-        </RevealOnScroll>
+        <Text color="muted" className="mb-12 leading-relaxed">
+          These Terms and Conditions govern the rental services provided by
+          XMA Car Rental. By renting a vehicle from XMA Car Rental
+          LLC, you agree to the following terms and conditions:
+        </Text>
 
         <TermsSection title="1. Rental Eligibility">
           <Text color="muted">
@@ -72,11 +65,11 @@ export function TermsContent() {
         <TermsSection title="2. Rental Period">
           <Text color="muted">
             2.1. The rental period starts at the time and date specified in the
-            rental agreement and ends when the vehicle is returned to Uptown
+            rental agreement and ends when the vehicle is returned to XMA Car Rental
             Rent A Car LLC.
           </Text>
           <Text color="muted">
-            2.2. Extensions to the rental period must be approved by Uptown Rent
+            2.2. Extensions to the rental period must be approved by XMA Car Rental Rent
             A Car LLC in advance, and additional charges may apply.
           </Text>
         </TermsSection>
@@ -127,7 +120,7 @@ export function TermsContent() {
         <TermsSection title="6. Accidents and Damage">
           <Text color="muted">
             6.1. In the event of an accident, the renter must immediately notify
-            Uptown Rent A Car LLC and the relevant UAE authorities.
+            XMA Car Rental and the relevant UAE authorities.
           </Text>
           <Text color="muted">
             6.2. A police report is mandatory for all damages, accidents, or
@@ -158,7 +151,7 @@ export function TermsContent() {
             resolved in your favor.
           </Text>
           <Text color="muted">
-            8.2. Share your dispute resolution details with Uptown Rent A Car
+            8.2. Share your dispute resolution details with XMA Car Rental
             LLC for assistance.
           </Text>
         </TermsSection>
@@ -200,12 +193,12 @@ export function TermsContent() {
           <Text color="muted">
             10.4. Clients are solely responsible for all credit card, banking,
             service, cellular, data, or access fees or charges incurred in
-            relation to any payment to Uptown Rent A Car LLC in terms of
+            relation to any payment to XMA Car Rental in terms of
             insufficient funds or the use of any of the services and features.
           </Text>
           <Text color="muted">
             10.5. For all payments taken against a client&apos;s credit card,
-            Uptown Rent A Car LLC will send a payment confirmation email to the
+            XMA Car Rental will send a payment confirmation email to the
             registered email address within 48-72 hours of the payment.
           </Text>
           <Text color="muted">
@@ -224,7 +217,7 @@ export function TermsContent() {
             and tear.&quot;
           </Text>
           <Text color="muted">
-            10.9. If a repair or cleaning request is verified by Uptown Rent A
+            10.9. If a repair or cleaning request is verified by XMA Car Rental Rent A
             Car LLC at its reasonable discretion, the company reserves the right
             to facilitate payment for the reasonable cost of such repair or
             cleaning using the client&apos;s payment method designated in their
@@ -242,7 +235,7 @@ export function TermsContent() {
           <Text color="muted">
             11.1. The vehicle must be returned in the same condition it was
             rented, along with all accessories (e.g., GPS devices, child seats)
-            provided by Uptown Rent A Car LLC.
+            provided by XMA Car Rental.
           </Text>
           <Text color="muted">
             11.2. Late returns will incur additional charges as per the rental
@@ -278,7 +271,7 @@ export function TermsContent() {
 
         <TermsSection title="12. Liability">
           <Text color="muted">
-            12.1. Uptown Rent A Car LLC is not liable for any personal items
+            12.1. XMA Car Rental is not liable for any personal items
             left in the vehicle during or after the rental period.
           </Text>
           <Text color="muted">
@@ -302,7 +295,7 @@ export function TermsContent() {
             Applications and any updates thereto.
           </Text>
           <Text color="muted">
-            13.3. Uptown Rent A Car LLC does not guarantee that the Services, or
+            13.3. XMA Car Rental does not guarantee that the Services, or
             any portion thereof, will function on any particular hardware or
             devices.
           </Text>
@@ -315,7 +308,7 @@ export function TermsContent() {
         <TermsSection title="Insurance and Its Criteria">
           <TermsSubSection title="Comprehensive Insurance">
             <Text color="muted">
-              At Uptown Rent a Car LLC, all vehicles are provided with
+              At XMA Car Rental, all vehicles are provided with
               comprehensive insurance in compliance with UAE law. In the event
               of an accident or damage, it is mandatory for clients to notify
               the police immediately. The vehicle must not be moved unless the
@@ -357,7 +350,7 @@ export function TermsContent() {
 
         <TermsSection title="14. Termination of Agreement">
           <Text color="muted">
-            14.1. Uptown Rent A Car LLC reserves the right to terminate the
+            14.1. XMA Car Rental reserves the right to terminate the
             rental agreement at any time if the terms and conditions are
             violated.
           </Text>
@@ -365,7 +358,7 @@ export function TermsContent() {
 
         <TermsSection title="15. Governing Law">
           <Text color="muted">
-            This Agreement between the client and Uptown Rent a Car LLC,
+            This Agreement between the client and XMA Car Rental,
             including any access to or use of the vehicle or services, shall be
             governed by the laws and regulations of the United Arab Emirates and
             shall be applicable to the emirate where the agreement is executed.
