@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Search } from "lucide-react";
 import { Container, Heading, Text, Section } from "@/components/ui";
 import Image from "next/image";
-import BgPic from "@/public/banner.png";
+import BgPic from "@/public/banner.webp";
 import { BrandMarquee } from "./BrandMarquee";
 import { VehicleSearch } from "@/components/sections/cars";
 
